@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import PokeBowl from '@/views/PokeBowl.vue';
+import SingleIngredient from '@/views/SingleIngredient.vue';
 
 const router = createRouter({
   history: createWebHistory(''),
@@ -7,6 +8,11 @@ const router = createRouter({
     {
       path: '/',
       component: PokeBowl
+    },
+    {
+      path: '/ingredient/:id',
+      name: 'singleIngredient',
+      component: SingleIngredient
     }
   ]
 })
