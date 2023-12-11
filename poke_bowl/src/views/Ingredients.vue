@@ -2,6 +2,7 @@
 import BoiteIngredient from '@/components/BoiteIngredient.vue';
 import type { Ingredient } from '@/types';
 import { ref, type Ref } from 'vue';
+import { loadScript } from "vue-plugin-load-script";
 
 const ingredients:Ref<Ingredient[]> = ref([
     {
@@ -21,8 +22,26 @@ const ingredients:Ref<Ingredient[]> = ref([
             nom: "Poisson",
             couleur: "Bleu"
         }
+    },{
+        id:2,
+        nom: "Qwilfish",
+        type: {
+            id:0,
+            nom: "Poisson",
+            couleur: "Bleu"
+        }
+    },{
+        id:3,
+        nom: "Cuisse de Grenousse",
+        type: {
+            id:0,
+            nom: "Viande",
+            couleur: "Marron"
+        }
     }
 ])
+
+loadScript('/js/search.js');
 
 </script>
 
