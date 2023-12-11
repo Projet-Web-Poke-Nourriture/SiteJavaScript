@@ -11,6 +11,7 @@ const router = useRouter();
       <nav>
         <div @click="router.push({name:'AllIngredients'})">Les ingrédients</div>
         <div @click="router.push({name:'allUsers'})">Les utilisateurs</div>
+        <div @click="router.push({name:'allRecettes'})">Les recettes</div>
         <div >S'inscrire</div>
         <div >Se connecter</div>
       </nav>
