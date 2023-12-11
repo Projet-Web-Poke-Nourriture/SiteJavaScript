@@ -10,6 +10,7 @@ const router = useRouter();
       <h1 @click="router.push('/PokeBowl')">PokeBowl</h1>
       <nav>
         <div @click="router.push({name:'AllIngredients'})">Les ingrédients</div>
+        <div @click="router.push({name:'allUsers'})">Les utilisateurs</div>
         <div >S'inscrire</div>
         <div >Se connecter</div>
       </nav>
