@@ -23,5 +23,7 @@ export interface Recette {
     nom : string;
     categorie : Categorie;
     recommander : boolean;
+    tempsPrepa : number;
+    ingredients: {ingredient: Ingredient, nombreNecessaire : number, poidsNecessaire : number};
 }
 
