@@ -5,7 +5,7 @@ import Ingredients from '@/views/Ingredients.vue';
 import SingleUser from '@/views/SingleUser.vue';
 import Utilisateur from '@/views/Utilisateurs.vue';
 import SingleRecette from '@/views/SingleRecette.vue';
-import Recette from '@/view/Recettes.vue';
+import Recette from '@/views/Recettes.vue';
 
 const router = createRouter({
   history: createWebHistory(''),
