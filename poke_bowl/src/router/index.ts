@@ -5,6 +5,7 @@ import Ingredients from '@/views/Ingredients.vue';
 import SingleUser from '@/views/SingleUser.vue';
 import Utilisateur from '@/views/Utilisateurs.vue';
 import SingleRecette from '@/views/SingleRecette.vue';
+import Recette from '@/view/Recettes.vue';
 
 const router = createRouter({
   history: createWebHistory(''),
@@ -42,6 +43,11 @@ const router = createRouter({
       path: '/recette/:id',
       name: 'singleRecette',
       component: SingleRecette
+    },
+    {
+      path: '/recettes',
+      name: 'allRecettes',
+      component: Recette
     }
   ]
 })
