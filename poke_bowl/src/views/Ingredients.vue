@@ -43,6 +43,7 @@ const ingredients:Ref<Ingredient[]> = ref([
 
 loadScript('/js/search.js');
 
+
 </script>
 
 <template>
