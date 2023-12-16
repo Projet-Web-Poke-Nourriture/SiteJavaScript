@@ -11,9 +11,9 @@ for (let a in props.recette.ingredients) {
 </script>
 
 <template>
-  <div class="contentBox">
+  <div class="recette">
     <div class="top">
-      {{ recette.nom }}
+      <h2 class="titre">{{ recette.nom }}</h2>
     </div>
     <div class="resumeRecette">
       <div class="infoComp">
@@ -28,6 +28,7 @@ for (let a in props.recette.ingredients) {
       </div>
     </div>
     <div class="etapes">
+      <h3 class="titre">Etapes</h3>
       <ul>
         <li v-for="etape in recette.etapes">
           <span>{{ etape.descriptif }}</span>
@@ -36,3 +37,27 @@ for (let a in props.recette.ingredients) {
     </div>
   </div>
 </template>
+
+<style>
+  .recette{
+    background-color: white;
+  }
+
+  .resumeRecette{
+    background-color: yellow;
+  }
+
+  .titre{
+    text-align: center;
+  }
+
+  ul{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  li{
+    text-align: center;
+  }
+</style>

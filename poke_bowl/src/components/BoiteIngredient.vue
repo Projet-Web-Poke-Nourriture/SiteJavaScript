@@ -5,7 +5,7 @@ const props = defineProps<{ingredient: Ingredient}>();
 
 
 <template>
-    <div class="contentBox">
+    <div class="ingredient">
       <div class="top">
         {{ingredient.id}}
       </div>
