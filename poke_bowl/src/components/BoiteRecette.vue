@@ -15,15 +15,24 @@ for (let a in props.recette.ingredients) {
     <div class="top">
       {{ recette.nom }}
     </div>
-    <div class="group">
-      <label>Temps de préparation : {{ recette.tempsPrepa }}min</label>
+    <div class="resumeRecette">
+      <div class="infoComp">
+        <label>Temps de préparation : {{ recette.tempsPrepa }}min</label>
+      </div>
+      <div class="ingredients">
+        <BoiteIngredient
+          v-for="ingredient in ingr"
+          :key="ingredient.id"
+          :ingredient="ingredient"
+        />
+      </div>
     </div>
-    <div class="group">
-      <BoiteIngredient
-        v-for="ingredient in ingr"
-        :key="ingredient.id"
-        :ingredient="ingredient"
-      />
+    <div class="etapes">
+      <ul>
+        <li v-for="etape in recette.etapes">
+          <span>{{ etape.descriptif }}</span>
+        </li>
+      </ul>
     </div>
   </div>
 </template>

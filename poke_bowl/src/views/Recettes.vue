@@ -42,6 +42,7 @@ const recettes: Ref<Recette[]> = ref([
         poidsNecessaire: 600,
       },
     ],
+    etapes: [{numero:1,descriptif:"passe"},{numero:2,descriptif:"passe2"}]
   },
   {
     id: 1,
@@ -81,6 +82,7 @@ const recettes: Ref<Recette[]> = ref([
         poidsNecessaire: 150,
       },
     ],
+    etapes: [{numero:1,descriptif:"passe"},{numero:2,descriptif:"passe2"}]
   },
 ]);
 </script>
