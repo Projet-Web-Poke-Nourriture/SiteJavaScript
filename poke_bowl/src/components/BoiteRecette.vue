@@ -31,6 +31,7 @@ for (let a in props.recette.ingredients) {
       <h3 class="titre">Etapes</h3>
       <ul>
         <li v-for="etape in recette.etapes">
+          <p>Etape {{ etape.numero }}</p>
           <span>{{ etape.descriptif }}</span>
         </li>
       </ul>
@@ -55,9 +56,5 @@ for (let a in props.recette.ingredients) {
     list-style: none;
     margin: 0;
     padding: 0;
-  }
-
-  li{
-    text-align: center;
   }
 </style>
