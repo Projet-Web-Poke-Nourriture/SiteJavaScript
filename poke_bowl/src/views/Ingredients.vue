@@ -75,7 +75,6 @@ function selectIngredient(ingredient: Ingredient) {
       <div
         class="resultat"
         v-for="ingredient in filteredIngredients"
-        :key="ingredient.id"
         @click="selectIngredient(ingredient)"
       >
         {{ ingredient.nom }}
