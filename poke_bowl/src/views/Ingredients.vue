@@ -3,6 +3,8 @@ import BoiteIngredient from '@/components/BoiteIngredient.vue';
 import type { Ingredient } from '@/types';
 import { ref, type Ref, watch } from 'vue';
 import { loadScript } from "vue-plugin-load-script";
+import {useRouter} from 'vue-router';
+const router = useRouter();
 
 const ingredients:Ref<Ingredient[]> = ref([
     {
@@ -58,7 +60,7 @@ watch(searchTerm, (newValue) => {
 
 function selectIngredient(ingredient: Ingredient) {
   // Action à effectuer, par exemple, naviguer vers une page de détail ou ajouter à une liste
-  console.log(`Ingrédient sélectionné : ${ingredient.nom}`);
+    router.push({ path: `/ingredient/${ingredient.id}` });
 }
 
 </script>
