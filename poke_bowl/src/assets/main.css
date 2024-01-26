@@ -66,4 +66,35 @@ button:hover, .button:hover, nav a:hover {
     color: #fff;
 }
 
-/* Ajoutez des styles supplémentaires ci-dessous selon vos besoins */
+/* ----------------------------  INGREDIENTS ----------------------------- */
+/* ingredient card */
+.ingredient {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.ingredient:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.ingredient .content {
+    margin-top: 10px;
+}
+
+.ingredient .content .group {
+    margin-bottom: 10px;
+}
+
+.ingredient label {
+    font-weight: bold;
+}
+
+.ingredient-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}

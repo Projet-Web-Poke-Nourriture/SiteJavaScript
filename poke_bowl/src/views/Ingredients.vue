@@ -70,31 +70,34 @@ const goToFormIngredient = () => {
 </script>
 
 <template>
-  
+  <div>
     <input type="text" id="recherche" name="recherche" v-model="searchTerm" />
     <button @click="goToFormIngredient">Créer un ingrédient</button>
     <!-- Afficher les résultats seulement si searchTerm n'est pas vide -->
-    <div>
-    <div
-      class="resultats-recherche"
-      v-if="searchTerm && filteredIngredients.length"
-    >
-      <div
-        class="resultat"
-        v-for="ingredient in filteredIngredients"
-        @click="selectIngredient(ingredient)"
-      >
-        {{ ingredient.nom }}
+    <div v-if="searchTerm">
+      <div class="resultats-recherche" v-if="filteredIngredients.length">
+        <div
+            class="resultat"
+            v-for="ingredient in filteredIngredients"
+            :key="ingredient.id"
+            @click="selectIngredient(ingredient)"
+        >
+          {{ ingredient.nom }}
+        </div>
       </div>
     </div>
-  </div>
 
-  <BoiteIngredient
-    v-for="ingredient in ingredients"
-    :key="ingredient.id"
-    :ingredient="ingredient"
-  />
+    <!-- Ici commence la grille pour les ingrédients -->
+    <div class="ingredient-grid">
+      <BoiteIngredient
+          v-for="ingredient in ingredients"
+          :key="ingredient.id"
+          :ingredient="ingredient"
+      />
+    </div>
+  </div>
 </template>
+
 
 <style>
 /* Exemple de styles pour les résultats de recherche */
