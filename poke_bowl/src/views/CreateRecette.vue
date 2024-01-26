@@ -1,6 +1,9 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import type { Categorie, Recette, Ingredient } from "@/types"; // Assurez-vous que le chemin d'importation est correct
+import type { Categorie, Recette, Ingredient } from "@/types";
+import { loadScript } from "vue-plugin-load-script";
+
+loadScript("/js/search.js");
 
 export default defineComponent({
   setup() {
@@ -20,17 +23,64 @@ export default defineComponent({
       etapes: [],
     });
 
-    const addIngredient = () => {
-      const newIngredient: Ingredient = {
-        id: Date.now(),
-        nom: "Ratio",
-        type: categories.value[0],
-      }; // Type par défaut
+    const searchTerm = ref("");
+    const searchResults = ref<Ingredient[]>([]);
+    // Simuler une liste d'ingrédients (à remplacer par votre liste réelle)
+    const allIngredients = ref<Ingredient[]>([
+      {
+        id: 0,
+        nom: "Lardon de Grotichon",
+        type: {
+          id: 0,
+          nom: "Viande",
+          couleur: "Marron",
+        },
+      },
+      {
+        id: 1,
+        nom: "Froussardine en boîte",
+        type: {
+          id: 1,
+          nom: "Poisson",
+          couleur: "Bleu",
+        },
+      },
+      {
+        id: 2,
+        nom: "Qwilfish",
+        type: {
+          id: 0,
+          nom: "Poisson",
+          couleur: "Bleu",
+        },
+      },
+      {
+        id: 3,
+        nom: "Cuisse de Grenousse",
+        type: {
+          id: 0,
+          nom: "Viande",
+          couleur: "Marron",
+        },
+      },
+    ]);
+
+    const searchIngredients = () => {
+      if (!searchTerm.value) {
+        searchResults.value = [];
+        return;
+      }
+      searchResults.value = search(searchTerm.value, allIngredients.value);
+    };
+
+    const addIngredientFromSearch = (ingredient: Ingredient) => {
       recette.value.ingredients.push({
-        ingredient: newIngredient,
-        nombreNecessaire: 0,
-        poidsNecessaire: 0,
+        ingredient,
+        nombreNecessaire: 1, // Valeur par défaut ou laisser l'utilisateur choisir
+        poidsNecessaire: 100, // Valeur par défaut ou laisser l'utilisateur choisir
       });
+      searchTerm.value = ""; // Réinitialiser le terme de recherche
+      searchResults.value = []; // Vider les résultats de recherche
     };
 
     const removeIngredient = (index: number) => {
@@ -52,7 +102,10 @@ export default defineComponent({
     return {
       categories,
       recette,
-      addIngredient,
+      searchTerm,
+      searchResults,
+      searchIngredients,
+      addIngredientFromSearch,
       removeIngredient,
       addEtape,
       submitRecette,
@@ -123,7 +176,23 @@ export default defineComponent({
           />
           <button @click.prevent="removeIngredient(index)">Supprimer</button>
         </div>
-        <button @click.prevent="addIngredient">Ajouter un ingrédient</button>
+
+        <!-- Champ de recherche d'ingrédients -->
+        <input
+          type="text"
+          placeholder="Rechercher un ingrédient"
+          v-model="searchTerm"
+          @input="searchIngredients"
+        />
+        <ul class="search-results" v-if="searchResults.length">
+          <li
+            v-for="result in searchResults"
+            :key="result.id"
+            @click="addIngredientFromSearch(result)"
+          >
+            {{ result.nom }}
+          </li>
+        </ul>
       </fieldset>
 
       <!-- Étapes -->
