@@ -5,8 +5,9 @@
 */
 function search(val,proto){
     let liste = [];
-    for(let valProto in proto){
-        if (proto[valProto].nom.includes(val)){
+    let valLower = val.toLowerCase();
+    for (let valProto in proto) {
+        if (proto[valProto].nom.toLowerCase().includes(valLower)) {
             liste.push(proto[valProto]);
         }
     }
