@@ -1,4 +1,52 @@
+/* pas définitif, à ajuster */
 body {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif; /* je mets ça par défaut, vous pourrez changer */
+    background-color: #FFCC00; /* Couleur de fond jaune, à ajuster pour les yeux ^^ */
+}
+
+/* En-tête et navigation */
+header {
+    background-color: #333; /* Couleur de fond pour l'en-tête */
+    color: white;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Titre principal */
+h1 {
+    font-size: 2em;
+    color: #FFCC00; /* Couleur du texte pour le titre, à ajuster */
+}
+
+/* Section des recettes */
+.recipe-card {
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+/* Boutons et liens */
+button, .button {
+    background-color: #f0ad4e; /* Couleur de fond pour les boutons */
+    border: none;
+    border-radius: 4px;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover, .button:hover {
+    background-color: #ec971f; /* Couleur de fond au survol */
 }
