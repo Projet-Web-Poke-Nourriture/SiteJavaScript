@@ -61,15 +61,20 @@ watch(searchTerm, (newValue) => {
 });
 
 function selectIngredient(ingredient: Ingredient) {
-  // Action à effectuer, par exemple, naviguer vers une page de détail ou ajouter à une liste
   router.push({ path: `/ingredient/${ingredient.id}` });
 }
+
+const goToFormIngredient = () => {
+      router.push({ name: 'formIngredient' }); // Utilisez le nom de la route des recettes
+    };
 </script>
 
 <template>
-  <div>
+  
     <input type="text" id="recherche" name="recherche" v-model="searchTerm" />
+    <button @click="goToFormIngredient">Créer un ingrédient</button>
     <!-- Afficher les résultats seulement si searchTerm n'est pas vide -->
+    <div>
     <div
       class="resultats-recherche"
       v-if="searchTerm && filteredIngredients.length"

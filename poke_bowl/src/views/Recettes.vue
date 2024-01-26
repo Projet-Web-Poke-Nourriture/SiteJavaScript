@@ -111,12 +111,11 @@ watch(searchTerm, (newValue) => {
 });
 
 function selectIngredient(recette: Recette) {
-  // Action à effectuer, par exemple, naviguer vers une page de détail ou ajouter à une liste
   router.push({ path: `/recette/${recette.id}` });
 }
 
 const goToRecettes = () => {
-      router.push({ name: 'formRecette' }); // Utilisez le nom de la route des recettes
+      router.push({ name: 'formRecette' });
     };
 </script>
 
