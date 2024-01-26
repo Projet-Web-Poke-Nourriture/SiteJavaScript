@@ -40,21 +40,21 @@ for (let a in props.recette.ingredients) {
 </template>
 
 <style>
-  .recette{
-    background-color: white;
-  }
+.recette {
+  background-color: white;
+}
 
-  .resumeRecette{
-    background-color: yellow;
-  }
+.resumeRecette {
+  background-color: yellow;
+}
 
-  .titre{
-    text-align: center;
-  }
+.titre {
+  text-align: center;
+}
 
-  ul{
-    list-style: none;
-    margin: 0;
-    padding: 0;
-  }
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
 </style>

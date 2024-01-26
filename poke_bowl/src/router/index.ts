@@ -1,55 +1,55 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import PokeBowl from '@/views/PokeBowl.vue';
-import SingleIngredient from '@/views/SingleIngredient.vue';
-import Ingredients from '@/views/Ingredients.vue';
-import SingleUser from '@/views/SingleUser.vue';
-import Utilisateur from '@/views/Utilisateurs.vue';
-import SingleRecette from '@/views/SingleRecette.vue';
-import Recette from '@/views/Recettes.vue';
+import { createRouter, createWebHistory } from "vue-router";
+import PokeBowl from "@/views/PokeBowl.vue";
+import SingleIngredient from "@/views/SingleIngredient.vue";
+import Ingredients from "@/views/Ingredients.vue";
+import SingleUser from "@/views/SingleUser.vue";
+import Utilisateur from "@/views/Utilisateurs.vue";
+import SingleRecette from "@/views/SingleRecette.vue";
+import Recette from "@/views/Recettes.vue";
 
 const router = createRouter({
-  history: createWebHistory(''),
+  history: createWebHistory(""),
   routes: [
     {
-      path: '/',
-      component: PokeBowl
+      path: "/",
+      component: PokeBowl,
     },
     {
-      path: '/PokeBowl',
-      name: 'PokeBowl',
-      component: PokeBowl
+      path: "/PokeBowl",
+      name: "PokeBowl",
+      component: PokeBowl,
     },
     {
-      path: '/ingredient/:id',
-      name: 'singleIngredient',
-      component: SingleIngredient
+      path: "/ingredient/:id",
+      name: "singleIngredient",
+      component: SingleIngredient,
     },
     {
-      path: '/ingredients',
-      name: 'AllIngredients',
-      component: Ingredients
+      path: "/ingredients",
+      name: "AllIngredients",
+      component: Ingredients,
     },
     {
-      path: '/user/:id',
-      name: 'singleUser',
-      component: SingleUser
+      path: "/user/:id",
+      name: "singleUser",
+      component: SingleUser,
     },
     {
-      path: '/users',
-      name: 'allUsers',
-      component: Utilisateur
+      path: "/users",
+      name: "allUsers",
+      component: Utilisateur,
     },
     {
-      path: '/recette/:id',
-      name: 'singleRecette',
-      component: SingleRecette
+      path: "/recette/:id",
+      name: "singleRecette",
+      component: SingleRecette,
     },
     {
-      path: '/recettes',
-      name: 'allRecettes',
-      component: Recette
-    }
-  ]
-})
+      path: "/recettes",
+      name: "allRecettes",
+      component: Recette,
+    },
+  ],
+});
 
-export default router
+export default router;

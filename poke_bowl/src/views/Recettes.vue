@@ -3,7 +3,7 @@ import BoiteRecette from "@/components/BoiteRecette.vue";
 import type { Recette } from "@/types";
 import { ref, type Ref, watch } from "vue";
 import { loadScript } from "vue-plugin-load-script";
-import {useRouter} from 'vue-router';
+import { useRouter } from "vue-router";
 const router = useRouter();
 
 const recettes: Ref<Recette[]> = ref([
@@ -45,7 +45,10 @@ const recettes: Ref<Recette[]> = ref([
         poidsNecessaire: 600,
       },
     ],
-    etapes: [{numero:1,descriptif:"passe"},{numero:2,descriptif:"passe2"}]
+    etapes: [
+      { numero: 1, descriptif: "passe" },
+      { numero: 2, descriptif: "passe2" },
+    ],
   },
   {
     id: 1,
@@ -85,13 +88,16 @@ const recettes: Ref<Recette[]> = ref([
         poidsNecessaire: 150,
       },
     ],
-    etapes: [{numero:1,descriptif:"passe"},{numero:2,descriptif:"passe2"}]
+    etapes: [
+      { numero: 1, descriptif: "passe" },
+      { numero: 2, descriptif: "passe2" },
+    ],
   },
 ]);
 
-loadScript('/js/search.js');
+loadScript("/js/search.js");
 
-const searchTerm = ref(''); // Terme de recherche lié à la saisie de l'utilisateur
+const searchTerm = ref(""); // Terme de recherche lié à la saisie de l'utilisateur
 const filteredRecettes = ref<Recette[]>([]); // Résultats filtrés à afficher
 
 watch(searchTerm, (newValue) => {
@@ -106,12 +112,11 @@ watch(searchTerm, (newValue) => {
 
 function selectIngredient(recette: Recette) {
   // Action à effectuer, par exemple, naviguer vers une page de détail ou ajouter à une liste
-    router.push({ path: `/recette/${recette.id}` });
+  router.push({ path: `/recette/${recette.id}` });
 }
 </script>
 
 <template>
-
   <input type="text" id="recherche" name="recherche" v-model="searchTerm" />
 
   <!-- Afficher les résultats seulement si searchTerm n'est pas vide -->
@@ -126,6 +131,9 @@ function selectIngredient(recette: Recette) {
     </div>
   </div>
 
-
-    <BoiteRecette v-for="recette in recettes" :key="recette.id" :recette="recette"/>
+  <BoiteRecette
+    v-for="recette in recettes"
+    :key="recette.id"
+    :recette="recette"
+  />
 </template>
