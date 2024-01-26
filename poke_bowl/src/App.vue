@@ -29,7 +29,9 @@ const router = useRouter();
   flex-direction: column;
   align-items: center;
   min-height: 100vh;
-  background-color: #FFFFFF; /* Fond blanc pour la page entière */
+  background-image: url('./images/bgPoke.png');
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 header {
