@@ -1,42 +1,56 @@
-/* pas définitif, à ajuster */
-body {
+/* Réinitialisation de quelques styles par défaut */
+* {
     margin: 0;
     padding: 0;
-    font-family: 'Arial', sans-serif; /* je mets ça par défaut, vous pourrez changer */
-    background-color: #FFCC00; /* Couleur de fond jaune, à ajuster pour les yeux ^^ */
+    box-sizing: border-box;
 }
 
-/* En-tête et navigation */
+body, html {
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    font-family: 'Arial', sans-serif; /* Remplacer par la police de votre choix */
+    background-color: #FFFFFF; /* Couleur de fond pour le corps de la page */
+}
+
+/* En-tête */
 header {
-    background-color: #333; /* Couleur de fond pour l'en-tête */
-    color: white;
-    padding: 10px 20px;
+    background-color: #FFCC00; /* Couleur de fond jaune pour l'en-tête */
+    color: #333333; /* Couleur de texte pour l'en-tête */
+    padding: 1rem;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
 }
 
-/* Titre principal */
-h1 {
-    font-size: 2em;
-    color: #FFCC00; /* Couleur du texte pour le titre, à ajuster */
+/* Navigation Bar */
+nav a {
+    background-color: #FFCC00; /* Couleur de fond pour les liens de navigation */
+    color: #333333; /* Couleur de texte pour les liens de navigation */
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: background-color 0.3s;
 }
 
-/* Section des recettes */
-.recipe-card {
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-    padding: 20px;
-    margin-bottom: 20px;
+nav a:hover {
+    background-color: #f0ad4e; /* Couleur de fond au survol pour les liens de navigation */
 }
 
-/* Boutons et liens */
-button, .button {
-    background-color: #f0ad4e; /* Couleur de fond pour les boutons */
+/* Contenu principal */
+.main-content {
+    background-color: #FFFFFF; /* Couleur de fond pour la partie principale */
+    padding: 2rem;
+}
+
+/* Boutons */
+button, .button, nav a {
+    background-color: #FFCC00; /* Couleur de fond pour les boutons */
+    color: #333333; /* Couleur de texte pour les boutons */
     border: none;
     border-radius: 4px;
-    color: white;
     padding: 10px 15px;
     text-align: center;
     text-decoration: none;
@@ -47,6 +61,9 @@ button, .button {
     transition: background-color 0.3s ease;
 }
 
-button:hover, .button:hover {
-    background-color: #ec971f; /* Couleur de fond au survol */
+button:hover, .button:hover, nav a:hover {
+    background-color: #ec971f; /* Couleur de fond au survol pour les boutons */
+    color: #fff;
 }
+
+/* Ajoutez des styles supplémentaires ci-dessous selon vos besoins */
