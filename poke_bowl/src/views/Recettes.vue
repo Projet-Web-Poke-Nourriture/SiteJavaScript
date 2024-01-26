@@ -120,10 +120,10 @@ const goToRecettes = () => {
 </script>
 
 <template>
-  <input type="text" id="recherche" name="recherche" v-model="searchTerm" />
-
-  <!-- Bouton pour créer des recettes -->
-  <button @click="goToRecettes">Créer une recette</button>
+  <div class="recette-search-create">
+    <input type="text" id="recherche" name="recherche" v-model="searchTerm" placeholder="Rechercher une recette..." />
+    <button @click="goToFormRecette">Créer une recette</button>
+  </div>
 
   <!-- Afficher les résultats seulement si searchTerm n'est pas vide -->
   <div class="resultats-recherche" v-if="searchTerm && filteredRecettes.length">
@@ -143,3 +143,29 @@ const goToRecettes = () => {
     :recette="recette"
   />
 </template>
+
+<style>
+/* ---- Styles pour la recherche et le bouton ---- */
+.recette-search-create {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding: 10px;
+}
+
+input[type="text"] {
+  padding: 8px;
+  margin-right: 10px;
+  width: 100%;
+}
+
+button {
+  padding: 10px 20px;
+  cursor: pointer;
+  background-color: #FFCC00;
+  border: none;
+  border-radius: 5px;
+}
+
+
+</style>

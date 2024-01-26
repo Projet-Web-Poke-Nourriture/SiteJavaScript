@@ -11,50 +11,60 @@ for (let a in props.recette.ingredients) {
 </script>
 
 <template>
-  <div class="recette">
-    <div class="top">
-      <h2 class="titre">{{ recette.nom }}</h2>
-    </div>
-    <div class="resumeRecette">
-      <div class="infoComp">
-        <label>Temps de préparation : {{ recette.tempsPrepa }}min</label>
-      </div>
-      <div class="ingredients">
-        <BoiteIngredient
-          v-for="ingredient in ingr"
-          :key="ingredient.id"
-          :ingredient="ingredient"
-        />
-      </div>
-    </div>
-    <div class="etapes">
-      <h3 class="titre">Etapes</h3>
+  <div class="recette-card">
+    <h2 class="recette-titre">{{ recette.nom }}</h2>
+    <p class="recette-categorie">{{ recette.categorie.nom }}</p>
+    <p class="recette-temps">Temps de préparation : {{ recette.tempsPrepa }} min</p>
+    <div class="recette-ingredients">
+      <h3>Ingrédients</h3>
       <ul>
-        <li v-for="etape in recette.etapes">
-          <p>Etape {{ etape.numero }}</p>
-          <span>{{ etape.descriptif }}</span>
+        <li v-for="ingredient in recette.ingredients" :key="ingredient.ingredient.id">
+          <boite-ingredient :ingredient="ingredient.ingredient"></boite-ingredient>
         </li>
       </ul>
+    </div>
+    <div class="recette-etapes">
+      <h3>Étapes</h3>
+      <ol>
+        <li v-for="etape in recette.etapes" :key="etape.ordre">
+          {{ etape.description }}
+        </li>
+      </ol>
     </div>
   </div>
 </template>
 
-<style>
-.recette {
-  background-color: white;
+<style scoped>
+.recette-card {
+  border: 1px solid #e0e0e0;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 10px;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-.resumeRecette {
-  background-color: yellow;
+.recette-titre {
+  font-size: 1.5em;
+  margin-bottom: 0.5em;
 }
 
-.titre {
-  text-align: center;
+.recette-categorie {
+  font-style: italic;
+  color: #666;
 }
 
-ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.recette-temps {
+  font-weight: bold;
+}
+
+.recette-ingredients h3, .recette-etapes h3 {
+  margin-top: 1em;
+  margin-bottom: 0.5em;
+}
+
+.recette-ingredients ul, .recette-etapes ol {
+  margin-left: 20px;
+  list-style-type: disc;
 }
 </style>
