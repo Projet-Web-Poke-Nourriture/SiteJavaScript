@@ -6,6 +6,7 @@ import SingleUser from "@/views/SingleUser.vue";
 import Utilisateur from "@/views/Utilisateurs.vue";
 import SingleRecette from "@/views/SingleRecette.vue";
 import Recette from "@/views/Recettes.vue";
+import CreateRecette from "@/views/CreateRecette.vue";
 
 const router = createRouter({
   history: createWebHistory(""),
@@ -48,6 +49,11 @@ const router = createRouter({
       path: "/recettes",
       name: "allRecettes",
       component: Recette,
+    },
+    {
+      path: "/form-recette",
+      name: "formRecette",
+      component: CreateRecette,
     },
   ],
 });
