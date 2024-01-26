@@ -1,51 +1,53 @@
 <script setup lang="ts">
-import BoiteIngredient from '@/components/BoiteIngredient.vue';
-import type { Ingredient } from '@/types';
-import { ref, type Ref, watch } from 'vue';
+import BoiteIngredient from "@/components/BoiteIngredient.vue";
+import type { Ingredient } from "@/types";
+import { ref, type Ref, watch } from "vue";
 import { loadScript } from "vue-plugin-load-script";
-import {useRouter} from 'vue-router';
+import { useRouter } from "vue-router";
 const router = useRouter();
 
-const ingredients:Ref<Ingredient[]> = ref([
-    {
-        id:0,
-        nom: "Lardon de Grotichon",
-        type: {
-            id:0,
-            nom: "Viande",
-            couleur: "Marron"
-        }
+const ingredients: Ref<Ingredient[]> = ref([
+  {
+    id: 0,
+    nom: "Lardon de Grotichon",
+    type: {
+      id: 0,
+      nom: "Viande",
+      couleur: "Marron",
     },
-    {
-        id:1,
-        nom: "Froussardine en boîte",
-        type: {
-            id:1,
-            nom: "Poisson",
-            couleur: "Bleu"
-        }
-    },{
-        id:2,
-        nom: "Qwilfish",
-        type: {
-            id:0,
-            nom: "Poisson",
-            couleur: "Bleu"
-        }
-    },{
-        id:3,
-        nom: "Cuisse de Grenousse",
-        type: {
-            id:0,
-            nom: "Viande",
-            couleur: "Marron"
-        }
-    }
-])
+  },
+  {
+    id: 1,
+    nom: "Froussardine en boîte",
+    type: {
+      id: 1,
+      nom: "Poisson",
+      couleur: "Bleu",
+    },
+  },
+  {
+    id: 2,
+    nom: "Qwilfish",
+    type: {
+      id: 0,
+      nom: "Poisson",
+      couleur: "Bleu",
+    },
+  },
+  {
+    id: 3,
+    nom: "Cuisse de Grenousse",
+    type: {
+      id: 0,
+      nom: "Viande",
+      couleur: "Marron",
+    },
+  },
+]);
 
-loadScript('/js/search.js');
+loadScript("/js/search.js");
 
-const searchTerm = ref(''); // Terme de recherche lié à la saisie de l'utilisateur
+const searchTerm = ref(""); // Terme de recherche lié à la saisie de l'utilisateur
 const filteredIngredients = ref<Ingredient[]>([]); // Résultats filtrés à afficher
 
 watch(searchTerm, (newValue) => {
@@ -60,18 +62,19 @@ watch(searchTerm, (newValue) => {
 
 function selectIngredient(ingredient: Ingredient) {
   // Action à effectuer, par exemple, naviguer vers une page de détail ou ajouter à une liste
-    router.push({ path: `/ingredient/${ingredient.id}` });
+  router.push({ path: `/ingredient/${ingredient.id}` });
 }
-
 </script>
 
 <template>
-
-<div>
+  <div>
     <input type="text" id="recherche" name="recherche" v-model="searchTerm" />
 
     <!-- Afficher les résultats seulement si searchTerm n'est pas vide -->
-    <div class="resultats-recherche" v-if="searchTerm && filteredIngredients.length">
+    <div
+      class="resultats-recherche"
+      v-if="searchTerm && filteredIngredients.length"
+    >
       <div
         class="resultat"
         v-for="ingredient in filteredIngredients"
@@ -82,8 +85,12 @@ function selectIngredient(ingredient: Ingredient) {
     </div>
   </div>
 
-    <BoiteIngredient v-for="ingredient in ingredients" :key="ingredient.id"  :ingredient="ingredient"/>
-  </template>
+  <BoiteIngredient
+    v-for="ingredient in ingredients"
+    :key="ingredient.id"
+    :ingredient="ingredient"
+  />
+</template>
 
 <style>
 /* Exemple de styles pour les résultats de recherche */
