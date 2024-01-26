@@ -29,5 +29,9 @@ const users: Ref<Utilisateur[]> = ref([
 </script>
 
 <template>
-  <BoiteUtilisateur v-for="user in users" :key="user.id" :utilisateur="user" />
+  <div class="utilisateur-grid">
+    <div v-for="user in users" :key="user.id" class="utilisateur-card">
+      <BoiteUtilisateur :utilisateur="user" />
+    </div>
+  </div>
 </template>

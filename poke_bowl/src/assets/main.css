@@ -98,3 +98,38 @@ button:hover, .button:hover, nav a:hover {
     flex-wrap: wrap;
     justify-content: space-around;
 }
+
+
+/* ----------------------------  UTILISATEURS ----------------------------- */
+/* Utilisateurs cards */
+.utilisateur-card {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 10px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.utilisateur-card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.utilisateur-card .content {
+    margin-top: 10px;
+}
+
+.utilisateur-card .content .group {
+    margin-bottom: 10px;
+}
+
+.utilisateur-card label {
+    font-weight: bold;
+}
+
+.utilisateur-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
