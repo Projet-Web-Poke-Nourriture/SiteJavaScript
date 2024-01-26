@@ -119,6 +119,9 @@ function selectIngredient(recette: Recette) {
 <template>
   <input type="text" id="recherche" name="recherche" v-model="searchTerm" />
 
+  <!-- Bouton pour créer des recettes -->
+  <button type="button">Créer recette</button>
+
   <!-- Afficher les résultats seulement si searchTerm n'est pas vide -->
   <div class="resultats-recherche" v-if="searchTerm && filteredRecettes.length">
     <div

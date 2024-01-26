@@ -69,7 +69,6 @@ function selectIngredient(ingredient: Ingredient) {
 <template>
   <div>
     <input type="text" id="recherche" name="recherche" v-model="searchTerm" />
-
     <!-- Afficher les résultats seulement si searchTerm n'est pas vide -->
     <div
       class="resultats-recherche"
