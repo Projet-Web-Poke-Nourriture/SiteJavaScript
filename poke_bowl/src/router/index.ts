@@ -8,6 +8,7 @@ import SingleRecette from "@/views/SingleRecette.vue";
 import Recette from "@/views/Recettes.vue";
 import FormRecette from "@/views/FormRecette.vue";
 import FormIngredient from "@/views/FormIngredient.vue";
+import Connexion from "@/views/Connexion.vue";
 
 const router = createRouter({
   history: createWebHistory(""),
@@ -60,6 +61,11 @@ const router = createRouter({
       path: "/form-ingredient",
       name: "formIngredient",
       component: FormIngredient,
+    },
+    {
+      path: "/connexion",
+      name: "connexion",
+      component: Connexion,
     },
   ],
 });

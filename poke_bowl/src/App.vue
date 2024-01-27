@@ -14,7 +14,7 @@ const router = useRouter();
         <div @click="router.push({ name: 'allUsers' })">Les utilisateurs</div>
         <div @click="router.push({ name: 'allRecettes' })">Les recettes</div>
         <div>S'inscrire</div>
-        <div>Se connecter</div>
+        <div @click="router.push({ name: 'connexion' })">Se connecter</div>
       </nav>
     </header>
     <main>
