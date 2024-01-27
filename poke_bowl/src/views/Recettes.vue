@@ -122,7 +122,7 @@ const goToRecettes = () => {
 <template>
   <div class="recette-search-create">
     <input type="text" id="recherche" name="recherche" v-model="searchTerm" placeholder="Rechercher une recette..." />
-    <button @click="goToFormRecette">Créer une recette</button>
+    <button @click="goToRecettes">Créer une recette</button>
   </div>
 
   <!-- Afficher les résultats seulement si searchTerm n'est pas vide -->
