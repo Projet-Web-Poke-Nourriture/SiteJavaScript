@@ -21,7 +21,7 @@ export default defineComponent({
     const submitIngredient = () => {
       console.log('Ingrédient soumis:', ingredient.value);
       // Ici, ajoutez la logique pour envoyer l'ingrédient à votre backend ou le stocker localement
-      router.push({ name: 'ingredients' }); // Redirigez vers la liste des ingrédients après la soumission, ajustez le nom de la route selon votre application
+      router.push({ name: 'AllIngredients' }); // Redirigez vers la liste des ingrédients après la soumission, ajustez le nom de la route selon votre application
     };
 
     return {
