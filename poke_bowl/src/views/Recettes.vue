@@ -6,94 +6,13 @@ import { loadScript } from "vue-plugin-load-script";
 import { useRouter } from "vue-router";
 const router = useRouter();
 
-const recettes: Ref<Recette[]> = ref([
-  {
-    id: 0,
-    nom: "Pates Carbo",
-    categorie: {
-      id: 1,
-      nom: "Poisson",
-      couleur: "Bleu",
-    },
-    recommander: false,
-    tempsPrepa: 50,
-    ingredients: [
-      {
-        ingredient: {
-          id: 0,
-          nom: "Lardon de Grotichon",
-          type: {
-            id: 0,
-            nom: "Viande",
-            couleur: "Marron",
-          },
-        },
-        nombreNecessaire: 0,
-        poidsNecessaire: 300,
-      },
-      {
-        ingredient: {
-          id: 2,
-          nom: "Pates",
-          type: {
-            id: 0,
-            nom: "Féculent",
-            couleur: "Beige",
-          },
-        },
-        nombreNecessaire: 0,
-        poidsNecessaire: 600,
-      },
-    ],
-    etapes: [
-      { numero: 1, descriptif: "Bonjour a tous" },
-      { numero: 2, descriptif: "Ratio Skyflooze" },
-    ],
-  },
-  {
-    id: 1,
-    nom: "Thon Fromage",
-    categorie: {
-      id: 1,
-      nom: "Poisson",
-      couleur: "Bleu",
-    },
-    recommander: true,
-    tempsPrepa: 10,
-    ingredients: [
-      {
-        ingredient: {
-          id: 2,
-          nom: "Nigirigon entier",
-          type: {
-            id: 0,
-            nom: "Poisson",
-            couleur: "Bleu",
-          },
-        },
-        nombreNecessaire: 0,
-        poidsNecessaire: 150,
-      },
-      {
-        ingredient: {
-          id: 3,
-          nom: "Fromage",
-          type: {
-            id: 0,
-            nom: "Lait",
-            couleur: "Blanc",
-          },
-        },
-        nombreNecessaire: 0,
-        poidsNecessaire: 150,
-      },
-    ],
-    etapes: [
-      { numero: 1, descriptif: "passe" },
-      { numero: 2, descriptif: "passe2" },
-    ],
-  },
-]);
+const recettes: Ref<Recette[]> = ref([]);
+
+fetch('https://webinfo.iutmontp.univ-montp2.fr/~kicient/poke_bowl_api_php/poke_bowl_api/public/api/recettes')
+  .then(responsehttp => responsehttp.json())
+  .then(responseJSON => {
+    recettes.value = responseJSON["hydra:member"];
+  });
 
 loadScript("/js/search.js");
 
@@ -114,7 +33,7 @@ function selectIngredient(recette: Recette) {
   router.push({ path: `/recette/${recette.id}` });
 }
 
-const goToRecettes = () => {
+const goToFormRecette = () => {
       router.push({ name: 'formRecette' });
     };
 </script>

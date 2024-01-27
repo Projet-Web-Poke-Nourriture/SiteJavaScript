@@ -10,19 +10,20 @@ export interface Utilisateur {
   email: string;
   password: string;
   premium: boolean;
+  roles: string[];
 }
 
 export interface Ingredient {
   id: number;
   nom: string;
-  type: Categorie;
 }
 
 export interface Recette {
   id: number;
   nom: string;
-  categorie: Categorie;
   recommander: boolean;
+  date: Date;
+  auteur: Utilisateur;
   tempsPrepa: number;
   ingredients: {
     ingredient: Ingredient;

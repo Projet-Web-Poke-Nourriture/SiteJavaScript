@@ -16,10 +16,6 @@ const props = defineProps<{ ingredient: Ingredient }>();
           class="clickable"
           >{{ ingredient.nom }}</router-link>
       </div>
-      <div>
-        <label>Catégorie :</label>
-        {{ ingredient.type.nom }}
-      </div>
     </div>
   </div>
 </template>

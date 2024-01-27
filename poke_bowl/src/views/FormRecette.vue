@@ -1,69 +1,73 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import type { Categorie, Recette, Ingredient } from "@/types";
+import type { Recette, Ingredient, Utilisateur } from "@/types";
 import { loadScript } from "vue-plugin-load-script";
 
 loadScript("/js/search.js");
 
 export default defineComponent({
   setup() {
-    const categories = ref<Categorie[]>([
-      // Exemple de catégories
-      { id: 1, nom: "Dessert", couleur: "#f00" },
-      { id: 2, nom: "Plat principal", couleur: "#0f0" },
-    ]);
-
-    const recette = ref<Recette>({
-      id: Date.now(), // Génération simplifiée d'un ID, peut-être à adapter
-      nom: "",
-      categorie: categories.value[0], // Sélectionnez une catégorie par défaut si nécessaire
-      recommander: false,
-      tempsPrepa: 0,
-      ingredients: [],
-      etapes: [],
+    // Ici, vous devez remplacer cette partie par votre propre logique pour récupérer l'utilisateur connecté
+    const utilisateurConnecte = ref<Utilisateur>({
+      id: 1, // Exemple d'ID utilisateur
+      login: "UserExample",
+      email: "user@example.com",
+      password: "securepassword",
+      premium: true,
+      roles: ["ROLE_USER"],
     });
+
+    let recettePost = {
+      nom: "",
+      etapes: "",
+      tempsPrepa: 0,
+      auteur:
+        "/api/utilisateurs/1",
+    };
+
+    let etapes = [];
+    let ingredientsRecette= []
 
     const searchTerm = ref("");
     const searchResults = ref<Ingredient[]>([]);
-    // Simuler une liste d'ingrédients (à remplacer par votre liste réelle)
-    const allIngredients = ref<Ingredient[]>([
-      {
-        id: 0,
-        nom: "Lardon de Grotichon",
-        type: {
-          id: 0,
-          nom: "Viande",
-          couleur: "Marron",
-        },
-      },
-      {
-        id: 1,
-        nom: "Froussardine en boîte",
-        type: {
-          id: 1,
-          nom: "Poisson",
-          couleur: "Bleu",
-        },
-      },
-      {
-        id: 2,
-        nom: "Qwilfish",
-        type: {
-          id: 0,
-          nom: "Poisson",
-          couleur: "Bleu",
-        },
-      },
-      {
-        id: 3,
-        nom: "Cuisse de Grenousse",
-        type: {
-          id: 0,
-          nom: "Viande",
-          couleur: "Marron",
-        },
-      },
-    ]);
+    const allIngredients = ref<Ingredient[]>([]);
+
+    fetch(
+      "https://webinfo.iutmontp.univ-montp2.fr/~kicient/poke_bowl_api_php/poke_bowl_api/public/api/ingredients"
+    )
+      .then((responsehttp) => responsehttp.json())
+      .then((responseJSON) => {
+        allIngredients.value = responseJSON["hydra:member"];
+      });
+
+    const submitRecette = async () => {
+      etapes.forEach(etape => {
+        recettePost.etapes = recettePost.etapes + "\\" + etape.descriptif;
+      });
+      try {
+        const response = await fetch(
+          "https://webinfo.iutmontp.univ-montp2.fr/~kicient/poke_bowl_api_php/poke_bowl_api/public/api/recettes",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(recettePost),
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(`Erreur HTTP: ${response.status}`);
+        }
+
+        const responseData = await response.json();
+        console.log("Recette soumise avec succès", responseData);
+        // Redirection ou traitement après la soumission
+      } catch (error) {
+        console.error("Erreur lors de la soumission de la recette:", error);
+      }
+      
+    };
 
     const searchIngredients = () => {
       if (!searchTerm.value) {
@@ -74,41 +78,38 @@ export default defineComponent({
     };
 
     const addIngredientFromSearch = (ingredient: Ingredient) => {
-      recette.value.ingredients.push({
+      ingredientsRecette.push({
         ingredient,
-        nombreNecessaire: 1, // Valeur par défaut ou laisser l'utilisateur choisir
-        poidsNecessaire: 100, // Valeur par défaut ou laisser l'utilisateur choisir
+        nombreNecessaire: 0, // Valeur par défaut ou laisser l'utilisateur choisir
       });
       searchTerm.value = ""; // Réinitialiser le terme de recherche
       searchResults.value = []; // Vider les résultats de recherche
     };
 
     const removeIngredient = (index: number) => {
-      recette.value.ingredients.splice(index, 1);
+      ingredientsRecette.splice(index, 1);
+      console.log(ingredientsRecette);
     };
 
     const addEtape = () => {
-      recette.value.etapes.push({
-        numero: recette.value.etapes.length + 1,
+      etapes.push({
+        numero: etapes.length + 1,
         descriptif: "",
       });
     };
 
-    const submitRecette = () => {
-      console.log("Recette soumise:", recette.value);
-      // Logique pour soumettre la recette à votre backend ou store
-    };
-
     return {
-      categories,
-      recette,
+      recettePost,
+      etapes,
+      ingredientsRecette,
       searchTerm,
       searchResults,
+      // Ajoutez ici les méthodes retournées
+      submitRecette,
       searchIngredients,
       addIngredientFromSearch,
       removeIngredient,
       addEtape,
-      submitRecette,
     };
   },
 });
@@ -122,21 +123,7 @@ export default defineComponent({
       <!-- Nom de la recette -->
       <div>
         <label for="nom">Nom de la recette:</label>
-        <input type="text" id="nom" v-model="recette.nom" required />
-      </div>
-
-      <!-- Catégorie -->
-      <div>
-        <label for="categorie">Catégorie:</label>
-        <select id="categorie" v-model="recette.categorie">
-          <option
-            v-for="categorie in categories"
-            :key="categorie.id"
-            :value="categorie"
-          >
-            {{ categorie.nom }}
-          </option>
-        </select>
+        <input type="text" id="nom" v-model="recettePost.nom" required />
       </div>
 
       <!-- Temps de préparation -->
@@ -145,7 +132,7 @@ export default defineComponent({
         <input
           type="number"
           id="tempsPrepa"
-          v-model.number="recette.tempsPrepa"
+          v-model.number="recettePost.tempsPrepa"
           required
         />
       </div>
@@ -154,7 +141,7 @@ export default defineComponent({
       <fieldset>
         <legend>Ingrédients</legend>
         <div
-          v-for="(ingredient, index) in recette.ingredients"
+          v-for="(ingredient, index) in ingredientsRecette"
           :key="index"
           class="ingredient"
         >
@@ -168,11 +155,6 @@ export default defineComponent({
             type="number"
             v-model="ingredient.nombreNecessaire"
             placeholder="Quantité"
-          />
-          <input
-            type="number"
-            v-model="ingredient.poidsNecessaire"
-            placeholder="Poids (en grammes)"
           />
           <button @click.prevent="removeIngredient(index)">Supprimer</button>
         </div>
@@ -199,7 +181,7 @@ export default defineComponent({
       <fieldset>
         <legend>Étapes</legend>
         <div
-          v-for="(etape, index) in recette.etapes"
+          v-for="(etape, index) in etapes"
           :key="index"
           class="etape"
         >

@@ -6,44 +6,14 @@ import { loadScript } from "vue-plugin-load-script";
 import { useRouter } from "vue-router";
 const router = useRouter();
 
-const ingredients: Ref<Ingredient[]> = ref([
-  {
-    id: 0,
-    nom: "Lardon de Grotichon",
-    type: {
-      id: 0,
-      nom: "Viande",
-      couleur: "Marron",
-    },
-  },
-  {
-    id: 1,
-    nom: "Froussardine en boîte",
-    type: {
-      id: 1,
-      nom: "Poisson",
-      couleur: "Bleu",
-    },
-  },
-  {
-    id: 2,
-    nom: "Qwilfish",
-    type: {
-      id: 0,
-      nom: "Poisson",
-      couleur: "Bleu",
-    },
-  },
-  {
-    id: 3,
-    nom: "Cuisse de Grenousse",
-    type: {
-      id: 0,
-      nom: "Viande",
-      couleur: "Marron",
-    },
-  },
-]);
+const ingredients: Ref<Ingredient[]> = ref([]);
+
+fetch('https://webinfo.iutmontp.univ-montp2.fr/~kicient/poke_bowl_api_php/poke_bowl_api/public/api/ingredients')
+  .then(responsehttp => responsehttp.json())
+  .then(responseJSON => {
+    ingredients.value = responseJSON["hydra:member"];
+  });
+
 
 loadScript("/js/search.js");
 
@@ -67,12 +37,34 @@ function selectIngredient(ingredient: Ingredient) {
 const goToFormIngredient = () => {
       router.push({ name: 'formIngredient' }); // Utilisez le nom de la route des recettes
     };
+
+const ingredientIdToDelete = ref(0); // Référence pour stocker l'ID entré par l'utilisateur
+
+const deleteIngredient = async (id) => {
+  if (!id) return; // Vérifier si l'ID est fourni
+  try {
+    const response = await fetch(`https://webinfo.iutmontp.univ-montp2.fr/~kicient/poke_bowl_api_php/poke_bowl_api/public/api/ingredients/${id}`, {
+      method: 'DELETE'
+    });
+    if (response.ok) {
+      // Supprimer l'ingrédient du tableau local après la suppression réussie
+      ingredients.value = ingredients.value.filter(ingredient => ingredient.id !== id);
+    } else {
+      console.error("Erreur lors de la suppression de l'ingrédient");
+    }
+  } catch (error) {
+    console.error("Erreur lors de la suppression de l'ingrédient", error);
+  }
+};
 </script>
 
 <template>
-    <div class="ingredient-search-create">
-      <input type="text" id="recherche" name="recherche" v-model="searchTerm" placeholder="Rechercher un ingrédient ..." />
-      <button @click="goToFormIngredient">Créer un ingrédient</button>
+  <div>
+    <input type="text" id="recherche" name="recherche" v-model="searchTerm" />
+    <button @click="goToFormIngredient">Créer un ingrédient</button>
+    <div>
+      <input type="number" v-model="ingredientIdToDelete" placeholder="Entrez l'ID à supprimer" />
+      <button @click="deleteIngredient(ingredientIdToDelete)">Supprimer l'ingrédient</button>
     </div>
     <!-- Afficher les résultats seulement si searchTerm n'est pas vide -->
     <div v-if="searchTerm">
