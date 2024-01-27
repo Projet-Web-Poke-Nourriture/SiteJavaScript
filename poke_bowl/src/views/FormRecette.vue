@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import type { Categorie, Recette, Ingredient, Utilisateur } from "@/types";
+import type { Recette, Ingredient, Utilisateur } from "@/types";
 import { loadScript } from "vue-plugin-load-script";
 
 loadScript("/js/search.js");
@@ -37,7 +37,7 @@ export default defineComponent({
     };
 
     let etapes = [];
-    let ingredientsRecette = []
+    let ingredientsRecette= []
 
     const searchTerm = ref("");
     const searchResults = ref<Ingredient[]>([]);
@@ -88,7 +88,6 @@ export default defineComponent({
       ingredientsRecette.push({
         ingredient,
         nombreNecessaire: 0, // Valeur par défaut ou laisser l'utilisateur choisir
-        poidsNecessaire: 0, // Valeur par défaut ou laisser l'utilisateur choisir
       });
       searchTerm.value = ""; // Réinitialiser le terme de recherche
       searchResults.value = []; // Vider les résultats de recherche
@@ -96,11 +95,12 @@ export default defineComponent({
 
     const removeIngredient = (index: number) => {
       ingredientsRecette.splice(index, 1);
+      console.log(ingredientsRecette);
     };
 
     const addEtape = () => {
       etapes.push({
-        numero: recette.value.etapes.length + 1,
+        numero: etapes.length + 1,
         descriptif: "",
       });
     };
