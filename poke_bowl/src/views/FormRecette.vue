@@ -33,7 +33,8 @@ export default defineComponent({
       etapes: "",
       tempsPrepa: 0,
       auteur:
-        "/api/utilisateurs/" + encodeURI(String(utilisateurConnecte.value.id)),
+        "/api/utilisateurs/1",
+      ingredients:[]
     };
 
     let etapes = [];
@@ -52,6 +53,9 @@ export default defineComponent({
       });
 
     const submitRecette = async () => {
+      etapes.forEach(etape => {
+        recettePost.etapes = recettePost.etapes + "\\" + etape.descriptif;
+      });
       try {
         const response = await fetch(
           "https://webinfo.iutmontp.univ-montp2.fr/~kicient/poke_bowl_api_php/poke_bowl_api/public/api/recettes",
@@ -60,7 +64,7 @@ export default defineComponent({
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(recette.value),
+            body: JSON.stringify(recettePost),
           }
         );
 
@@ -74,6 +78,7 @@ export default defineComponent({
       } catch (error) {
         console.error("Erreur lors de la soumission de la recette:", error);
       }
+      
     };
 
     const searchIngredients = () => {
