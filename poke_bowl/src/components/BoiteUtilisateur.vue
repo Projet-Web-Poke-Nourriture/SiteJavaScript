@@ -30,3 +30,10 @@ const lienPhoto = "https://webinfo.iutmontp.univ-montp2.fr/~ramirezc/test/MyAvat
     <img class="PP" :src="lienPhoto" alt="img profil"/>
   </div>
 </template>
+
+<style>
+  .PP {
+    width: 300px;
+    height: 300px;
+  }
+</style>
