@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import type { Utilisateur } from "@/types";
-import { loadScript } from "vue-plugin-load-script";
 import { md5 } from 'js-md5';
-
-let a = loadScript("/js/md5.js");
 
 const props = defineProps<{ utilisateur: Utilisateur}>();
 const md5hash = md5(props.utilisateur.email);
