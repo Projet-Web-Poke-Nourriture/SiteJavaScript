@@ -34,7 +34,6 @@ export default defineComponent({
       tempsPrepa: 0,
       auteur:
         "/api/utilisateurs/1",
-      ingredients:[]
     };
 
     let etapes = [];
