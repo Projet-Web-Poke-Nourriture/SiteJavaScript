@@ -22,7 +22,6 @@ export interface Ingredient {
 export interface Recette {
   id: number;
   nom: string;
-  categorie: Categorie;
   recommander: boolean;
   date: Date;
   auteur: Utilisateur;

@@ -1,69 +1,65 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import type { Categorie, Recette, Ingredient } from "@/types";
+import type { Categorie, Recette, Ingredient, Utilisateur } from "@/types";
 import { loadScript } from "vue-plugin-load-script";
 
 loadScript("/js/search.js");
 
 export default defineComponent({
   setup() {
-    const categories = ref<Categorie[]>([
-      // Exemple de catégories
-      { id: 1, nom: "Dessert", couleur: "#f00" },
-      { id: 2, nom: "Plat principal", couleur: "#0f0" },
-    ]);
+    // Ici, vous devez remplacer cette partie par votre propre logique pour récupérer l'utilisateur connecté
+    const utilisateurConnecte = ref<Utilisateur>({
+      id: 1, // Exemple d'ID utilisateur
+      login: "UserExample",
+      email: "user@example.com",
+      password: "securepassword", // Le mot de passe ne devrait généralement pas être manipulé côté client
+      premium: true,
+      roles: ["ROLE_USER"],
+    });
 
     const recette = ref<Recette>({
-      id: Date.now(), // Génération simplifiée d'un ID, peut-être à adapter
+      id: Date.now(), // Utiliser une méthode plus appropriée pour générer l'ID dans une application réelle
       nom: "",
-      categorie: categories.value[0], // Sélectionnez une catégorie par défaut si nécessaire
       recommander: false,
+      date: new Date(), // La date actuelle sera utilisée pour la création de la recette
+      auteur: utilisateurConnecte.value, // Utiliser l'utilisateur connecté
       tempsPrepa: 0,
       ingredients: [],
       etapes: [],
     });
 
+    const categories = ref<Categorie[]>([
+      // Exemple de catégories
+    ]);
+
     const searchTerm = ref("");
     const searchResults = ref<Ingredient[]>([]);
-    // Simuler une liste d'ingrédients (à remplacer par votre liste réelle)
-    const allIngredients = ref<Ingredient[]>([
-      {
-        id: 0,
-        nom: "Lardon de Grotichon",
-        type: {
-          id: 0,
-          nom: "Viande",
-          couleur: "Marron",
-        },
-      },
-      {
-        id: 1,
-        nom: "Froussardine en boîte",
-        type: {
-          id: 1,
-          nom: "Poisson",
-          couleur: "Bleu",
-        },
-      },
-      {
-        id: 2,
-        nom: "Qwilfish",
-        type: {
-          id: 0,
-          nom: "Poisson",
-          couleur: "Bleu",
-        },
-      },
-      {
-        id: 3,
-        nom: "Cuisse de Grenousse",
-        type: {
-          id: 0,
-          nom: "Viande",
-          couleur: "Marron",
-        },
-      },
-    ]);
+    const allIngredients = ref<Ingredient[]>([]);
+
+    const submitRecette = async () => {
+      try {
+        const response = await fetch(
+          "https://webinfo.iutmontp.univ-montp2.fr/~kicient/poke_bowl_api_php/poke_bowl_api/public/api/recettes",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(recette.value),
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(`Erreur HTTP: ${response.status}`);
+        }
+
+        const responseData = await response.json();
+        console.log("Recette soumise avec succès", responseData);
+        // Redirection ou traitement après la soumission
+      } catch (error) {
+        console.error("Erreur lors de la soumission de la recette:", error);
+      }
+    };
 
     const searchIngredients = () => {
       if (!searchTerm.value) {
@@ -94,21 +90,19 @@ export default defineComponent({
       });
     };
 
-    const submitRecette = () => {
-      console.log("Recette soumise:", recette.value);
-      // Logique pour soumettre la recette à votre backend ou store
-    };
+    // Ajoutez ici les méthodes pour ajouter/supprimer des ingrédients et étapes
 
     return {
       categories,
       recette,
       searchTerm,
       searchResults,
+      // Ajoutez ici les méthodes retournées
+      submitRecette,
       searchIngredients,
       addIngredientFromSearch,
       removeIngredient,
       addEtape,
-      submitRecette,
     };
   },
 });
@@ -123,20 +117,6 @@ export default defineComponent({
       <div>
         <label for="nom">Nom de la recette:</label>
         <input type="text" id="nom" v-model="recette.nom" required />
-      </div>
-
-      <!-- Catégorie -->
-      <div>
-        <label for="categorie">Catégorie:</label>
-        <select id="categorie" v-model="recette.categorie">
-          <option
-            v-for="categorie in categories"
-            :key="categorie.id"
-            :value="categorie"
-          >
-            {{ categorie.nom }}
-          </option>
-        </select>
       </div>
 
       <!-- Temps de préparation -->

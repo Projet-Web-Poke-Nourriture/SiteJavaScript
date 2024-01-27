@@ -6,44 +6,13 @@ import { loadScript } from "vue-plugin-load-script";
 import { useRouter } from "vue-router";
 const router = useRouter();
 
-const ingredients: Ref<Ingredient[]> = ref([
-  {
-    id: 0,
-    nom: "Lardon de Grotichon",
-    type: {
-      id: 0,
-      nom: "Viande",
-      couleur: "Marron",
-    },
-  },
-  {
-    id: 1,
-    nom: "Froussardine en boîte",
-    type: {
-      id: 1,
-      nom: "Poisson",
-      couleur: "Bleu",
-    },
-  },
-  {
-    id: 2,
-    nom: "Qwilfish",
-    type: {
-      id: 0,
-      nom: "Poisson",
-      couleur: "Bleu",
-    },
-  },
-  {
-    id: 3,
-    nom: "Cuisse de Grenousse",
-    type: {
-      id: 0,
-      nom: "Viande",
-      couleur: "Marron",
-    },
-  },
-]);
+const ingredients: Ref<Ingredient[]> = ref([]);
+
+fetch('https://webinfo.iutmontp.univ-montp2.fr/~kicient/poke_bowl_api_php/poke_bowl_api/public/api/ingredients')
+  .then(responsehttp => responsehttp.json())
+  .then(responseJSON => {
+    ingredients.value = responseJSON["hydra:member"];
+  });
 
 loadScript("/js/search.js");
 
