@@ -23,6 +23,8 @@ export interface Recette {
   nom: string;
   categorie: Categorie;
   recommander: boolean;
+  date: Date;
+  auteur: Utilisateur;
   tempsPrepa: number;
   ingredients: {
     ingredient: Ingredient;
