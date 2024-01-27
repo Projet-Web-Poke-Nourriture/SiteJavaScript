@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent, ref } from "vue";
-import type { Categorie, Recette, Ingredient, Utilisateur } from "@/types";
+import type { Recette, Ingredient, Utilisateur } from "@/types";
 import { loadScript } from "vue-plugin-load-script";
 
 loadScript("/js/search.js");
@@ -17,27 +17,16 @@ export default defineComponent({
       roles: ["ROLE_USER"],
     });
 
-    const recette = ref<Recette>({
-      id: Date.now(), // Utiliser une méthode plus appropriée pour générer l'ID dans une application réelle
-      nom: "",
-      recommander: false,
-      date: new Date(), // La date actuelle sera utilisée pour la création de la recette
-      auteur: utilisateurConnecte.value, // Utiliser l'utilisateur connecté
-      tempsPrepa: 0,
-      ingredients: [],
-      etapes: [],
-    });
-
     let recettePost = {
       nom: "",
       etapes: "",
       tempsPrepa: 0,
       auteur:
-        "/api/utilisateurs/" + encodeURI(String(utilisateurConnecte.value.id)),
+        "/api/utilisateurs/1",
     };
 
     let etapes = [];
-    let ingredientsRecette = []
+    let ingredientsRecette= []
 
     const searchTerm = ref("");
     const searchResults = ref<Ingredient[]>([]);
@@ -52,6 +41,9 @@ export default defineComponent({
       });
 
     const submitRecette = async () => {
+      etapes.forEach(etape => {
+        recettePost.etapes = recettePost.etapes + "\\" + etape.descriptif;
+      });
       try {
         const response = await fetch(
           "https://webinfo.iutmontp.univ-montp2.fr/~kicient/poke_bowl_api_php/poke_bowl_api/public/api/recettes",
@@ -60,7 +52,7 @@ export default defineComponent({
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(recette.value),
+            body: JSON.stringify(recettePost),
           }
         );
 
@@ -74,6 +66,7 @@ export default defineComponent({
       } catch (error) {
         console.error("Erreur lors de la soumission de la recette:", error);
       }
+      
     };
 
     const searchIngredients = () => {
@@ -88,7 +81,6 @@ export default defineComponent({
       ingredientsRecette.push({
         ingredient,
         nombreNecessaire: 0, // Valeur par défaut ou laisser l'utilisateur choisir
-        poidsNecessaire: 0, // Valeur par défaut ou laisser l'utilisateur choisir
       });
       searchTerm.value = ""; // Réinitialiser le terme de recherche
       searchResults.value = []; // Vider les résultats de recherche
@@ -96,11 +88,12 @@ export default defineComponent({
 
     const removeIngredient = (index: number) => {
       ingredientsRecette.splice(index, 1);
+      console.log(ingredientsRecette);
     };
 
     const addEtape = () => {
       etapes.push({
-        numero: recette.value.etapes.length + 1,
+        numero: etapes.length + 1,
         descriptif: "",
       });
     };
