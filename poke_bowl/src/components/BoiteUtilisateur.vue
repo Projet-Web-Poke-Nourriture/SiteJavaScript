@@ -1,6 +1,13 @@
 <script setup lang="ts">
 import type { Utilisateur } from "@/types";
-const props = defineProps<{ utilisateur: Utilisateur }>();
+import { loadScript } from "vue-plugin-load-script";
+
+let a = loadScript("/js/md5.js");
+
+const props = defineProps<{ utilisateur: Utilisateur}>();
+const md5hash = hex_md5(props.utilisateur.email);
+const lienPhoto = "https://webinfo.iutmontp.univ-montp2.fr/~ramirezc/test/MyAvatar/public/avatar/" + md5hash
+
 </script>
 
 <template>
@@ -20,5 +27,6 @@ const props = defineProps<{ utilisateur: Utilisateur }>();
         <input :value="utilisateur.email" />
       </div>
     </div>
+    <img class="PP" :src="lienPhoto" alt="img profil"/>
   </div>
 </template>
