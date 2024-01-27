@@ -14,7 +14,7 @@ const router = useRouter();
         <div @click="router.push({ name: 'allUsers' })">Les utilisateurs</div>
         <div @click="router.push({ name: 'allRecettes' })">Les recettes</div>
         <div>S'inscrire</div>
-        <div>Se connecter</div>
+        <div @click="router.push({ name: 'connexion' })">Se connecter</div>
       </nav>
     </header>
     <main>
@@ -75,7 +75,7 @@ main {
   max-width: 1280px;
   width: 780px;
   padding: 10px;
-  background-color: #FFEFD5; /* Fond blanc pour le contenu principal */
+  background-color: #FFEFD5; /* Fond jaune chaleureux et léger */
   flex-grow: 1;
 }
 

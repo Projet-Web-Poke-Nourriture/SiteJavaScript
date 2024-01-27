@@ -88,11 +88,16 @@ const deleteIngredient = async (id) => {
           :ingredient="ingredient"
       />
     </div>
-  </div>
 </template>
 
 
 <style>
+.ingredient-search-create {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding: 10px;
+}
 /* Exemple de styles pour les résultats de recherche */
 .resultats-recherche {
   border: 1px solid #ccc;

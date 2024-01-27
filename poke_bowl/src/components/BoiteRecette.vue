@@ -12,7 +12,10 @@ for (let a in props.recette.ingredients) {
 
 <template>
   <div class="recette-card">
-    <h2 class="recette-titre">{{ recette.nom }}</h2>
+    <h2 class="recette-titre"><router-link
+          :to="{ name: 'singleRecette', params: { id: recette.id } }"
+          class="clickable"
+          >{{ recette.nom }}</router-link></h2>
     <p class="recette-categorie">{{ recette.categorie.nom }}</p>
     <p class="recette-temps">Temps de préparation : {{ recette.tempsPrepa }} min</p>
     <div class="recette-ingredients">
@@ -26,8 +29,8 @@ for (let a in props.recette.ingredients) {
     <div class="recette-etapes">
       <h3>Étapes</h3>
       <ol>
-        <li v-for="etape in recette.etapes" :key="etape.ordre">
-          {{ etape.description }}
+        <li v-for="etape in recette.etapes" :key="etape.numero">
+          {{ etape.descriptif }}
         </li>
       </ol>
     </div>

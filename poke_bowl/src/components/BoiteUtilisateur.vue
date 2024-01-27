@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import type { Utilisateur } from "@/types";
-const props = defineProps<{ utilisateur: Utilisateur }>();
+import { md5 } from 'js-md5';
+
+const props = defineProps<{ utilisateur: Utilisateur}>();
+const md5hash = md5(props.utilisateur.email);
+const lienPhoto = "https://webinfo.iutmontp.univ-montp2.fr/~ramirezc/test/MyAvatar/public/avatar/" + md5hash
+
 </script>
 
 <template>
@@ -20,5 +25,13 @@ const props = defineProps<{ utilisateur: Utilisateur }>();
         <input :value="utilisateur.email" />
       </div>
     </div>
+    <img class="PP" :src="lienPhoto" alt="img profil"/>
   </div>
 </template>
+
+<style>
+  .PP {
+    width: 300px;
+    height: 300px;
+  }
+</style>

@@ -6,22 +6,22 @@ import { ref, type Ref } from "vue";
 const users: Ref<Utilisateur[]> = ref([
   {
     id: 0,
-    login: "Toto",
+    login: "TotoTiti",
     email: "toto@titi.fr",
     password: "password",
     premium: false,
   },
   {
     id: 1,
-    login: "Toto",
-    email: "toto@titi.fr",
+    login: "TotoTata",
+    email: "toto@tata.fr",
     password: "password",
     premium: false,
   },
   {
     id: 2,
-    login: "Toto",
-    email: "toto@titi.fr",
+    login: "TotoToTo",
+    email: "toto@toto.fr",
     password: "password",
     premium: false,
   },
