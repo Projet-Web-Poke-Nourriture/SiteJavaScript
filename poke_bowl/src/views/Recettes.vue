@@ -46,8 +46,8 @@ const recettes: Ref<Recette[]> = ref([
       },
     ],
     etapes: [
-      { numero: 1, descriptif: "passe" },
-      { numero: 2, descriptif: "passe2" },
+      { numero: 1, descriptif: "Bonjour a tous" },
+      { numero: 2, descriptif: "Ratio Skyflooze" },
     ],
   },
   {
