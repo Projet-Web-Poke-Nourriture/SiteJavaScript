@@ -14,6 +14,7 @@ fetch('https://webinfo.iutmontp.univ-montp2.fr/~kicient/poke_bowl_api_php/poke_b
     ingredients.value = responseJSON["hydra:member"];
   });
 
+  
 loadScript("/js/search.js");
 
 const searchTerm = ref(""); // Terme de recherche lié à la saisie de l'utilisateur

@@ -13,10 +13,6 @@ const props = defineProps<{ ingredient: Ingredient }>();
         <label>Nom : </label>
         {{ ingredient.nom }}
       </div>
-      <div>
-        <label>Catégorie :</label>
-        {{ ingredient.type.nom }}
-      </div>
     </div>
   </div>
 </template>
