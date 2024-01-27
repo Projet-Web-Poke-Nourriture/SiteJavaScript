@@ -9,12 +9,16 @@ const id = route.params.id;
 const ingredient: Ref<Ingredient> = ref({
   id: Number(id),
   nom: "Lardon de Grotichon",
-  type: {
-    id: 0,
-    nom: "Viande",
-    couleur: "Marron",
-  },
 });
+
+fetch('https://webinfo.iutmontp.univ-montp2.fr/~kicient/poke_bowl_api_php/poke_bowl_api/public/api/ingredients/' + encodeURI(String(id)))
+.then(responsehttp => responsehttp.json())
+  .then(responseJSON => {
+    ingredient.value.id = responseJSON["id"];
+    ingredient.value.nom = responseJSON["nom"];
+  });
+
+
 </script>
 
 <template>
