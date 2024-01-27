@@ -10,6 +10,7 @@ export interface Utilisateur {
   email: string;
   password: string;
   premium: boolean;
+  roles: string[];
 }
 
 export interface Ingredient {
