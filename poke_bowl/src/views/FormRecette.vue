@@ -17,17 +17,6 @@ export default defineComponent({
       roles: ["ROLE_USER"],
     });
 
-    const recette = ref<Recette>({
-      id: Date.now(), // Utiliser une méthode plus appropriée pour générer l'ID dans une application réelle
-      nom: "",
-      recommander: false,
-      date: new Date(), // La date actuelle sera utilisée pour la création de la recette
-      auteur: utilisateurConnecte.value, // Utiliser l'utilisateur connecté
-      tempsPrepa: 0,
-      ingredients: [],
-      etapes: [],
-    });
-
     let recettePost = {
       nom: "",
       etapes: "",
