@@ -70,9 +70,10 @@ const goToFormIngredient = () => {
 </script>
 
 <template>
-  <div>
-    <input type="text" id="recherche" name="recherche" v-model="searchTerm" />
-    <button @click="goToFormIngredient">Créer un ingrédient</button>
+    <div class="ingredient-search-create">
+      <input type="text" id="recherche" name="recherche" v-model="searchTerm" placeholder="Rechercher un ingrédient ..." />
+      <button @click="goToFormIngredient">Créer un ingrédient</button>
+    </div>
     <!-- Afficher les résultats seulement si searchTerm n'est pas vide -->
     <div v-if="searchTerm">
       <div class="resultats-recherche" v-if="filteredIngredients.length">
@@ -95,11 +96,16 @@ const goToFormIngredient = () => {
           :ingredient="ingredient"
       />
     </div>
-  </div>
 </template>
 
 
 <style>
+.ingredient-search-create {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding: 10px;
+}
 /* Exemple de styles pour les résultats de recherche */
 .resultats-recherche {
   border: 1px solid #ccc;
