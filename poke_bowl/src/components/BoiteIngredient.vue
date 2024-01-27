@@ -11,7 +11,10 @@ const props = defineProps<{ ingredient: Ingredient }>();
     <div class="content">
       <div class="group">
         <label>Nom : </label>
-        {{ ingredient.nom }}
+        <router-link
+          :to="{ name: 'singleIngredient', params: { id: ingredient.id } }"
+          class="clickable"
+          >{{ ingredient.nom }}</router-link>
       </div>
       <div>
         <label>Catégorie :</label>
