@@ -1,4 +1,5 @@
 <template>
+    <FlashMessage />
     <div class="login-container">
         <h1>Login</h1>
         <form @submit.prevent="login">
@@ -15,22 +16,17 @@
     </div>
 </template>
 
-<script lang="ts">
-export default {
-    data() {
-        return {
-            username: '',
-            password: ''
-        };
-    },
-    methods: {
-        login() {
-            // Perform login logic here
-            // You can make an API call to authenticate the user
-            // and handle the response accordingly
-        }
-    }
-};
+<script setup lang="ts">
+    import { flashMessage } from '@smartweb/vue-flash-message';
+    const username = "";
+    const password = "";
+
+    const login = (): void => {
+        flashMessage.show({
+            type: 'success',
+            title: "Ratio message title"
+        })
+    };
 </script>
 
 <style scoped>
