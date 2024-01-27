@@ -16,7 +16,6 @@ export interface Utilisateur {
 export interface Ingredient {
   id: number;
   nom: string;
-  type: Categorie;
 }
 
 export interface Recette {
