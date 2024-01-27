@@ -12,7 +12,7 @@ export default defineComponent({
       id: 1, // Exemple d'ID utilisateur
       login: "UserExample",
       email: "user@example.com",
-      password: "securepassword", // Le mot de passe ne devrait généralement pas être manipulé côté client
+      password: "securepassword",
       premium: true,
       roles: ["ROLE_USER"],
     });
@@ -28,13 +28,28 @@ export default defineComponent({
       etapes: [],
     });
 
-    const categories = ref<Categorie[]>([
-      // Exemple de catégories
-    ]);
+    let recettePost = {
+      nom: "",
+      etapes: "",
+      tempsPrepa: 0,
+      auteur:
+        "/api/utilisateurs/" + encodeURI(String(utilisateurConnecte.value.id)),
+    };
+
+    let etapes = [];
+    let ingredientsRecette = []
 
     const searchTerm = ref("");
     const searchResults = ref<Ingredient[]>([]);
     const allIngredients = ref<Ingredient[]>([]);
+
+    fetch(
+      "https://webinfo.iutmontp.univ-montp2.fr/~kicient/poke_bowl_api_php/poke_bowl_api/public/api/ingredients"
+    )
+      .then((responsehttp) => responsehttp.json())
+      .then((responseJSON) => {
+        allIngredients.value = responseJSON["hydra:member"];
+      });
 
     const submitRecette = async () => {
       try {
@@ -70,31 +85,30 @@ export default defineComponent({
     };
 
     const addIngredientFromSearch = (ingredient: Ingredient) => {
-      recette.value.ingredients.push({
+      ingredientsRecette.push({
         ingredient,
-        nombreNecessaire: 1, // Valeur par défaut ou laisser l'utilisateur choisir
-        poidsNecessaire: 100, // Valeur par défaut ou laisser l'utilisateur choisir
+        nombreNecessaire: 0, // Valeur par défaut ou laisser l'utilisateur choisir
+        poidsNecessaire: 0, // Valeur par défaut ou laisser l'utilisateur choisir
       });
       searchTerm.value = ""; // Réinitialiser le terme de recherche
       searchResults.value = []; // Vider les résultats de recherche
     };
 
     const removeIngredient = (index: number) => {
-      recette.value.ingredients.splice(index, 1);
+      ingredientsRecette.splice(index, 1);
     };
 
     const addEtape = () => {
-      recette.value.etapes.push({
+      etapes.push({
         numero: recette.value.etapes.length + 1,
         descriptif: "",
       });
     };
 
-    // Ajoutez ici les méthodes pour ajouter/supprimer des ingrédients et étapes
-
     return {
-      categories,
-      recette,
+      recettePost,
+      etapes,
+      ingredientsRecette,
       searchTerm,
       searchResults,
       // Ajoutez ici les méthodes retournées
@@ -116,7 +130,7 @@ export default defineComponent({
       <!-- Nom de la recette -->
       <div>
         <label for="nom">Nom de la recette:</label>
-        <input type="text" id="nom" v-model="recette.nom" required />
+        <input type="text" id="nom" v-model="recettePost.nom" required />
       </div>
 
       <!-- Temps de préparation -->
@@ -125,7 +139,7 @@ export default defineComponent({
         <input
           type="number"
           id="tempsPrepa"
-          v-model.number="recette.tempsPrepa"
+          v-model.number="recettePost.tempsPrepa"
           required
         />
       </div>
@@ -134,7 +148,7 @@ export default defineComponent({
       <fieldset>
         <legend>Ingrédients</legend>
         <div
-          v-for="(ingredient, index) in recette.ingredients"
+          v-for="(ingredient, index) in ingredientsRecette"
           :key="index"
           class="ingredient"
         >
@@ -148,11 +162,6 @@ export default defineComponent({
             type="number"
             v-model="ingredient.nombreNecessaire"
             placeholder="Quantité"
-          />
-          <input
-            type="number"
-            v-model="ingredient.poidsNecessaire"
-            placeholder="Poids (en grammes)"
           />
           <button @click.prevent="removeIngredient(index)">Supprimer</button>
         </div>
@@ -179,7 +188,7 @@ export default defineComponent({
       <fieldset>
         <legend>Étapes</legend>
         <div
-          v-for="(etape, index) in recette.etapes"
+          v-for="(etape, index) in etapes"
           :key="index"
           class="etape"
         >
