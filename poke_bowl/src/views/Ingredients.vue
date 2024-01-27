@@ -59,7 +59,6 @@ const deleteIngredient = async (id) => {
 </script>
 
 <template>
-  <div>
     <input type="text" id="recherche" name="recherche" v-model="searchTerm" />
     <button @click="goToFormIngredient">Créer un ingrédient</button>
     <div>
