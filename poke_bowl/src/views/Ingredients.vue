@@ -59,34 +59,36 @@ const deleteIngredient = async (id) => {
 </script>
 
 <template>
-    <input type="text" id="recherche" name="recherche" v-model="searchTerm" />
+  <div class="ingredient-search-create">
+    <input type="text" id="recherche" name="recherche" v-model="searchTerm" placeholder="Rechercher un ingrédient ..." />
     <button @click="goToFormIngredient">Créer un ingrédient</button>
-    <div>
-      <input type="number" v-model="ingredientIdToDelete" placeholder="Entrez l'ID à supprimer" />
-      <button @click="deleteIngredient(ingredientIdToDelete)">Supprimer l'ingrédient</button>
-    </div>
-    <!-- Afficher les résultats seulement si searchTerm n'est pas vide -->
-    <div v-if="searchTerm">
-      <div class="resultats-recherche" v-if="filteredIngredients.length">
-        <div
-            class="resultat"
-            v-for="ingredient in filteredIngredients"
-            :key="ingredient.id"
-            @click="selectIngredient(ingredient)"
-        >
-          {{ ingredient.nom }}
-        </div>
+  </div>
+  <div>
+    <input type="number" v-model="ingredientIdToDelete" placeholder="Entrez l'ID à supprimer" />
+    <button @click="deleteIngredient(ingredientIdToDelete)">Supprimer l'ingrédient</button>
+  </div>
+  <!-- Afficher les résultats seulement si searchTerm n'est pas vide -->
+  <div v-if="searchTerm">
+    <div class="resultats-recherche" v-if="filteredIngredients.length">
+      <div
+          class="resultat"
+          v-for="ingredient in filteredIngredients"
+          :key="ingredient.id"
+          @click="selectIngredient(ingredient)"
+      >
+        {{ ingredient.nom }}
       </div>
     </div>
+  </div>
 
-    <!-- Ici commence la grille pour les ingrédients -->
-    <div class="ingredient-grid">
-      <BoiteIngredient
-          v-for="ingredient in ingredients"
-          :key="ingredient.id"
-          :ingredient="ingredient"
-      />
-    </div>
+  <!-- Ici commence la grille pour les ingrédients -->
+  <div class="ingredient-grid">
+    <BoiteIngredient
+        v-for="ingredient in ingredients"
+        :key="ingredient.id"
+        :ingredient="ingredient"
+    />
+  </div>
 </template>
 
 
