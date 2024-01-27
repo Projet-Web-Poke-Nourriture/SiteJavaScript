@@ -75,7 +75,7 @@ main {
   max-width: 1280px;
   width: 780px;
   padding: 10px;
-  background-color: #FFEFD5; /* Fond blanc pour le contenu principal */
+  background-color: #FFEFD5; /* Fond jaune chaleureux et léger */
   flex-grow: 1;
 }
 
