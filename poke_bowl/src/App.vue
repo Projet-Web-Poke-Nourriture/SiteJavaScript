@@ -43,14 +43,15 @@ const isAdmin = ref(roles.includes("ADMIN"))
           Les ingrédients
         </div>
         <div v-if="isAdmin" @click="router.push({ name: 'allUsers' })">Les utilisateurs</div>
+        
+        <div @click="router.push({ name: 'allRecettes' })">Les recettes</div>
+        <div v-if="!isLoggedIn" @click="router.push({ name: 'inscription' })">S'inscrire</div>
         <div
           v-if="isLoggedIn"
           @click="router.push({ name: 'singleUser', params: { id: user.id } })"
         >
           Mon Profil
         </div>
-        <div @click="router.push({ name: 'allRecettes' })">Les recettes</div>
-        <div @click="router.push({ name: 'inscription' })">S'inscrire</div>
         <div v-if="!isLoggedIn" @click="router.push({ name: 'connexion' })">
           Se connecter
         </div>

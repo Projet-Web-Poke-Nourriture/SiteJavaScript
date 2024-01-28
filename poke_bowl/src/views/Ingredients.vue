@@ -8,6 +8,7 @@ import type { Ingredient } from "@/types";
 import { ref, type Ref, watch } from "vue";
 import { loadScript } from "vue-plugin-load-script";
 import { useRouter } from "vue-router";
+import { jwtDecode } from "jwt-decode";
 const router = useRouter();
 
 const ingredients: Ref<Ingredient[]> = ref([]);
@@ -60,6 +61,20 @@ const deleteIngredient = async (id) => {
     console.error("Erreur lors de la suppression de l'ingrédient", error);
   }
 };
+
+//Récupération de l'utilisateur
+const userToken = localStorage.getItem("userToken");
+const user = ref();
+const roles = new Proxy([],{});
+if (userToken) {
+  const decoded = jwtDecode(userToken);
+  user.value = decoded;
+  const roles = user.value.roles;
+}
+
+// Vérification si l'utilisateur est premium
+const isAdmin = ref(roles.includes("ADMIN"))
+
 </script>
 
 <template>
@@ -67,7 +82,7 @@ const deleteIngredient = async (id) => {
     <input type="text" id="recherche" name="recherche" v-model="searchTerm" placeholder="Rechercher un ingrédient ..." />
     <button @click="goToFormIngredient">Créer un ingrédient</button>
   </div>
-  <div>
+  <div v-if="isAdmin">
     <input type="number" v-model="ingredientIdToDelete" placeholder="Entrez l'ID à supprimer" />
     <button @click="deleteIngredient(ingredientIdToDelete)">Supprimer l'ingrédient</button>
   </div>
