@@ -1,6 +1,21 @@
 <script setup lang="ts">
+import { ref, onMounted } from 'vue';
 import { useRouter } from "vue-router";
+
 const router = useRouter();
+const isLoggedIn = ref(false);
+
+const checkLoginStatus = () => {
+  isLoggedIn.value = !!localStorage.getItem('userToken');
+};
+
+onMounted(checkLoginStatus);
+
+const logout = () => {
+  localStorage.removeItem('userToken');
+  checkLoginStatus();
+  router.push('/connexion');
+};
 </script>
 
 <template>
@@ -8,13 +23,12 @@ const router = useRouter();
     <header>
       <h1 @click="router.push('/PokeBowl')">PokeBowl</h1>
       <nav>
-        <div @click="router.push({ name: 'AllIngredients' })">
-          Les ingrédients
-        </div>
+        <div @click="router.push({ name: 'AllIngredients' })">Les ingrédients</div>
         <div @click="router.push({ name: 'allUsers' })">Les utilisateurs</div>
         <div @click="router.push({ name: 'allRecettes' })">Les recettes</div>
-        <div>S'inscrire</div>
-        <div @click="router.push({ name: 'connexion' })">Se connecter</div>
+        <div @click="router.push({ name: 'inscription' })">S'inscrire</div>
+        <div v-if="!isLoggedIn" @click="router.push({ name: 'connexion' })">Se connecter</div>
+        <div v-if="isLoggedIn" @click="logout">Se déconnecter</div>
       </nav>
     </header>
     <main>
