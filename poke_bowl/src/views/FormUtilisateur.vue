@@ -5,10 +5,9 @@ import type { Categorie, Utilisateur } from '@/types';
 export default defineComponent({
   setup() {
     const utilisateur = ref({
-      id: '',
       login: '',
-      email: '',
-      password: '',
+      adresseEmail: '',
+      plainPassword: '',
       premium: false,
     });
 
@@ -21,7 +20,7 @@ export default defineComponent({
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify(utilisateur),
+            body: JSON.stringify(utilisateur.value),
           }
         );
 
@@ -57,11 +56,11 @@ export default defineComponent({
         </div>
         <div>
           <label for="email">Email de l'utilisateur:</label>
-          <input type="text" id="email" v-model="utilisateur.email" required>
+          <input type="email" id="email" v-model="utilisateur.adresseEmail" required>
         </div>
         <div>
           <label for="password">Mot de passe de l'utilisateur:</label>
-          <input type="text" id="password" v-model="utilisateur.password" required>
+          <input type="password" id="password" v-model="utilisateur.plainPassword" required>
         </div>
         <div>
           <label for="premium">Utilisateur Premium ? :</label>

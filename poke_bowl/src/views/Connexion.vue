@@ -45,7 +45,7 @@ export default {
         <form @submit.prevent="performLogin">
             <div class="form-group">
                 <label for="login">Login</label>
-                <input type="text" id="username" v-model="username" required>
+                <input type="text" id="username" v-model="login" required>
             </div>
             <div class="form-group">
                 <label for="password">Password</label>
