@@ -1,6 +1,11 @@
 <script setup lang="ts">
 import { useRouter } from "vue-router";
 const router = useRouter();
+
+const logout = () => {
+  localStorage.removeItem('userToken');
+  router.push('/connexion');
+}
 </script>
 
 <template>
@@ -15,6 +20,7 @@ const router = useRouter();
         <div @click="router.push({ name: 'allRecettes' })">Les recettes</div>
         <div @click="router.push({ name: 'inscription' })">S'inscrire</div>
         <div @click="router.push({ name: 'connexion' })">Se connecter</div>
+        <div @click="logout">Se déconnecter</div>
       </nav>
     </header>
     <main>
