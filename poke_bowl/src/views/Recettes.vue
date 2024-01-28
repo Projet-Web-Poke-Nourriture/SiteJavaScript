@@ -1,4 +1,10 @@
 <script setup lang="ts">
+
+// TODO
+//Régler le bug des recettes
+// rajouter la fonctionnalité supprimer recette
+// ne pas montrer la suppression des recettes à non admin
+
 import BoiteRecette from "@/components/BoiteRecette.vue";
 import type { Recette } from "@/types";
 import { ref, type Ref, watch } from "vue";
@@ -41,7 +47,7 @@ const goToFormRecette = () => {
 <template>
   <div class="recette-search-create">
     <input type="text" id="recherche" name="recherche" v-model="searchTerm" placeholder="Rechercher une recette..." />
-    <button @click="goToRecettes">Créer une recette</button>
+    <button @click="goToFormRecette">Créer une recette</button>
   </div>
 
   <!-- Afficher les résultats seulement si searchTerm n'est pas vide -->

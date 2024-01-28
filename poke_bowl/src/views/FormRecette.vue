@@ -1,4 +1,8 @@
 <script lang="ts">
+
+// TODO
+//Finir la logique de la création de la recette
+
 import { defineComponent, ref } from "vue";
 import type { Recette, Ingredient, Utilisateur } from "@/types";
 import { loadScript } from "vue-plugin-load-script";

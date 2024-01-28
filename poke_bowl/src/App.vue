@@ -16,6 +16,10 @@ const logout = () => {
   checkLoginStatus();
   router.push('/connexion');
 };
+
+// TODO
+//Faire une verif si le user est admin si oui : afficher "les utilisateurs" + "mon profil"
+// sinon juste afficher "mon profil"
 </script>
 
 <template>

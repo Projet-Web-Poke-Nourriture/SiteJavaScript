@@ -1,4 +1,8 @@
 <script lang="ts">
+
+// TODO
+// Virer la partie premium
+
 import { defineComponent, ref } from 'vue';
 import type { Categorie, Utilisateur } from '@/types';
 
