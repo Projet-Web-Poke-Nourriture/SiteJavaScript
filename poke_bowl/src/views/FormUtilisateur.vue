@@ -77,7 +77,7 @@ export default defineComponent({
   margin: 0 auto;
   width: 50%;
   padding: 1rem;
-  border: 1px solid #ccc;
+  border: 1px solid black;
   border-radius: 1rem;
   background-color: #f4f4f4;
 }
@@ -105,7 +105,7 @@ export default defineComponent({
 .create-utilisateur form div input {
   padding: 0.5rem;
   border-radius: 0.5rem;
-  border: 1px solid #ccc;
+  border: 1px solid black;
 }
 
 .create-utilisateur form button {

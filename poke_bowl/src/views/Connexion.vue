@@ -1,9 +1,50 @@
+<script lang="ts">
+export default {
+  data() {
+    return {
+      login: '',
+      password: ''
+    };
+  },
+
+  methods: {
+    async performLogin() {
+      try {
+        const response = await fetch(
+          "https://webinfo.iutmontp.univ-montp2.fr/~kicient/poke_bowl_api_php/poke_bowl_api/public/api/auth",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              login: this.login,
+              password: this.password,
+            }),
+          }
+        );
+
+        if (!response.ok) {
+          throw new Error(`Erreur HTTP: ${response.status}`);
+        }
+
+        const responseData = await response.json();
+        console.log("Utilisateur connecté avec succès", responseData);
+
+      } catch (error) {
+        console.error("Erreur lors de la connexion de l'utilisateur :", error);
+      }
+    },
+  },
+};
+</script>
+
 <template>
     <div class="login-container">
         <h1>Login</h1>
-        <form @submit.prevent="login">
+        <form @submit.prevent="performLogin">
             <div class="form-group">
-                <label for="username">Username</label>
+                <label for="login">Login</label>
                 <input type="text" id="username" v-model="username" required>
             </div>
             <div class="form-group">
@@ -14,24 +55,6 @@
         </form>
     </div>
 </template>
-
-<script lang="ts">
-export default {
-    data() {
-        return {
-            username: '',
-            password: ''
-        };
-    },
-    methods: {
-        login() {
-            // Perform login logic here
-            // You can make an API call to authenticate the user
-            // and handle the response accordingly
-        }
-    }
-};
-</script>
 
 <style scoped>
 .login-container {
