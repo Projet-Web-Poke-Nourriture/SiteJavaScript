@@ -18,16 +18,21 @@ const logout = () => {
   router.push("/connexion");
 };
 
+//Récupération de l'utilisateur
 const userToken = localStorage.getItem("userToken");
-const user = ref(null);
+const user = ref();
+const roles = new Proxy([],{});
 if (userToken) {
   const decoded = jwtDecode(userToken);
   user.value = decoded;
+  const roles = user.value.roles;
 }
+
+// Vérification si l'utilisateur est premium
+const isAdmin = ref(roles.includes("ADMIN"))
 
 // TODO
 //Faire une verif si le user est admin si oui : afficher "les utilisateurs" + "mon profil"
-// sinon juste afficher "mon profil"
 </script>
 
 <template>
@@ -38,7 +43,7 @@ if (userToken) {
         <div @click="router.push({ name: 'AllIngredients' })">
           Les ingrédients
         </div>
-        <div @click="router.push({ name: 'allUsers' })">Les utilisateurs</div>
+        <div v-if="isAdmin" @click="router.push({ name: 'allUsers' })">Les utilisateurs</div>
         <div
           v-if="isLoggedIn"
           @click="router.push({ name: 'singleUser', params: { id: user.id } })"
