@@ -21,7 +21,7 @@ export interface Ingredient {
 export interface Recette {
   id: number;
   nom: string;
-  recommander: boolean;
+  recommande: boolean;
   date: Date;
   auteur: Utilisateur;
   tempsPrepa: number;

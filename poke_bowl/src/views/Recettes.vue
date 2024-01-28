@@ -18,6 +18,7 @@ fetch('https://webinfo.iutmontp.univ-montp2.fr/~kicient/poke_bowl_api_php/poke_b
   .then(responsehttp => responsehttp.json())
   .then(responseJSON => {
     recettes.value = responseJSON["hydra:member"];
+    console.log(recettes.value);
   });
 
 loadScript("/js/search.js");

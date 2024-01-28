@@ -2,8 +2,9 @@
 import type { Ingredient, Recette } from "@/types";
 import BoiteIngredient from "@/components/BoiteIngredient.vue";
 import { ref, type Ref } from "vue";
-const props = defineProps<{ recette: Recette }>();
 
+
+const props = defineProps<{ recette: Recette }>();
 let ingr: Ref<Ingredient[]> = ref([]);
 for (let a in props.recette.ingredients) {
   ingr.value.push(props.recette.ingredients[a].ingredient);
@@ -16,7 +17,6 @@ for (let a in props.recette.ingredients) {
           :to="{ name: 'singleRecette', params: { id: recette.id } }"
           class="clickable"
           >{{ recette.nom }}</router-link></h2>
-    <p class="recette-categorie">{{ recette.categorie.nom }}</p>
     <p class="recette-temps">Temps de préparation : {{ recette.tempsPrepa }} min</p>
     <div class="recette-ingredients">
       <h3>Ingrédients</h3>
