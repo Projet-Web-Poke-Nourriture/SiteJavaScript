@@ -31,8 +31,7 @@ if (userToken) {
 // Vérification si l'utilisateur est premium
 const isAdmin = ref(roles.includes("ADMIN"))
 
-// TODO
-//Faire une verif si le user est admin si oui : afficher "les utilisateurs" + "mon profil"
+
 </script>
 
 <template>
