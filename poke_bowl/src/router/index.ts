@@ -9,6 +9,7 @@ import Recette from "@/views/Recettes.vue";
 import FormRecette from "@/views/FormRecette.vue";
 import FormIngredient from "@/views/FormIngredient.vue";
 import Connexion from "@/views/Connexion.vue";
+import FormUtilisateur from "@/views/FormUtilisateur.vue";
 
 const router = createRouter({
   history: createWebHistory(""),
@@ -66,6 +67,11 @@ const router = createRouter({
       path: "/connexion",
       name: "connexion",
       component: Connexion,
+    },
+    {
+      path: "/inscription",
+      name: "inscription",
+      component: FormUtilisateur,
     },
   ],
 });

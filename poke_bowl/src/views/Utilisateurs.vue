@@ -2,6 +2,13 @@
 import BoiteUtilisateur from "@/components/BoiteUtilisateur.vue";
 import type { Utilisateur } from "@/types";
 import { ref, type Ref } from "vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+const goToFormUtilisateur = () => {
+  router.push({ name: 'inscription' });
+};
 
 const users: Ref<Utilisateur[]> = ref([
   {
@@ -29,6 +36,7 @@ const users: Ref<Utilisateur[]> = ref([
 </script>
 
 <template>
+  <button @click="goToFormUtilisateur">Créer un utilisateur</button>
   <div class="utilisateur-grid">
     <div v-for="user in users" :key="user.id" class="utilisateur-card">
       <BoiteUtilisateur :utilisateur="user" />
