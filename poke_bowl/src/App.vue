@@ -21,11 +21,12 @@ const logout = () => {
 //Récupération de l'utilisateur
 const userToken = localStorage.getItem("userToken");
 const user = ref();
-const roles = new Proxy([],{});
+let roles = new Proxy([],{});
 if (userToken) {
   const decoded = jwtDecode(userToken);
   user.value = decoded;
-  const roles = user.value.roles;
+  roles = user.value.roles;
+  console.log(roles)
 }
 
 // Vérification si l'utilisateur est premium
