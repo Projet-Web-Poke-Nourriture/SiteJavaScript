@@ -10,29 +10,24 @@ const goToFormUtilisateur = () => {
   router.push({ name: 'inscription' });
 };
 
-const users: Ref<Utilisateur[]> = ref([
+const users: Ref<Utilisateur[]> = ref([]);
+const userToken = localStorage.getItem("userToken");
+fetch(
+  "https://webinfo.iutmontp.univ-montp2.fr/~kicient/poke_bowl_api_php/poke_bowl_api/public/api/utilisateurs",
   {
-    id: 0,
-    login: "TotoTiti",
-    email: "toto@titi.fr",
-    password: "password",
-    premium: false,
-  },
-  {
-    id: 1,
-    login: "TotoTata",
-    email: "toto@tata.fr",
-    password: "password",
-    premium: false,
-  },
-  {
-    id: 2,
-    login: "TotoToTo",
-    email: "toto@toto.fr",
-    password: "password",
-    premium: false,
-  },
-]);
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": "Bearer " + userToken,
+            }
+          }
+)
+  .then((responsehttp) => responsehttp.json())
+  .then((responseJSON) => {
+    users.value = responseJSON["hydra:member"];
+  });
+
+
 </script>
 
 <template>

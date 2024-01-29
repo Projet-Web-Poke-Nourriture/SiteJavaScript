@@ -7,8 +7,7 @@ export interface Categorie {
 export interface Utilisateur {
   id: number;
   login: string;
-  email: string;
-  password: string;
+  adresseEmail: string;
   premium: boolean;
   roles: string[];
 }

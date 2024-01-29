@@ -3,7 +3,7 @@ import type { Utilisateur } from "@/types";
 import { md5 } from 'js-md5';
 
 const props = defineProps<{ utilisateur: Utilisateur}>();
-const md5hash = md5(props.utilisateur.email);
+const md5hash = md5(props.utilisateur.adresseEmail);
 const lienPhoto = "https://webinfo.iutmontp.univ-montp2.fr/~ramirezc/test/MyAvatar/public/avatar/" + md5hash
 
 </script>
@@ -22,7 +22,7 @@ const lienPhoto = "https://webinfo.iutmontp.univ-montp2.fr/~ramirezc/test/MyAvat
       </div>
       <div class="group">
         <label>Adresse e-mail</label>
-        <input :value="utilisateur.email" />
+        <p>{{ utilisateur.adresseEmail }}</p>
       </div>
     </div>
     <img class="PP" :src="lienPhoto" alt="img profil"/>
