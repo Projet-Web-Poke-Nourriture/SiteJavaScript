@@ -29,7 +29,7 @@ if (userToken) {
 }
 
 // Vérification si l'utilisateur est premium
-const isAdmin = ref(roles.includes("ADMIN"))
+const isAdmin = ref(roles.includes("ROLE_ADMIN"))
 
 
 </script>

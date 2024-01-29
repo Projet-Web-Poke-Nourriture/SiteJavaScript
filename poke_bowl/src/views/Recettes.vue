@@ -88,7 +88,7 @@ if (userToken) {
   const roles = user.value.roles;
 }
 
-const isAdmin = ref(roles.includes("ADMIN"));
+const isAdmin = ref(roles.includes("ROLE_ADMIN"));
 
 </script>
 

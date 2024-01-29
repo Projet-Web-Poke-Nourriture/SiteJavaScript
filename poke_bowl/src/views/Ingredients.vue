@@ -1,8 +1,5 @@
 <script setup lang="ts">
 
-// TODO
-// ne pas montrer la suppression des ingrédients à non admin
-
 import BoiteIngredient from "@/components/BoiteIngredient.vue";
 import type { Ingredient } from "@/types";
 import { ref, type Ref, watch } from "vue";
@@ -73,7 +70,7 @@ if (userToken) {
 }
 
 // Vérification si l'utilisateur est premium
-const isAdmin = ref(roles.includes("ADMIN"))
+const isAdmin = ref(roles.includes("ROLE_ADMIN"))
 
 </script>
 
