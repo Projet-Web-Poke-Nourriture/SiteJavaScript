@@ -7,45 +7,13 @@ import { useRoute } from "vue-router";
 const route = useRoute();
 const id = route.params.id;
 
-const recette: Ref<Recette> = ref({
-  id: Number(id),
-  nom: "Pates Carbo",
-  categorie: {
-    id: 1,
-    nom: "Poisson",
-    couleur: "Bleu",
-  },
-  recommander: false,
-  tempsPrepa: 50,
-  ingredients: [
-    {
-      ingredient: {
-        id: 0,
-        nom: "Lardon de Grotichon",
-        type: {
-          id: 0,
-          nom: "Viande",
-          couleur: "Marron",
-        },
-      },
-      nombreNecessaire: 0,
-      poidsNecessaire: 300,
-    },
-    {
-      ingredient: {
-        id: 2,
-        nom: "Pates",
-        type: {
-          id: 0,
-          nom: "Féculent",
-          couleur: "Beige",
-        },
-      },
-      nombreNecessaire: 0,
-      poidsNecessaire: 600,
-    },
-  ],
-});
+const recette: Ref<Recette> = ref({});
+  fetch('https://webinfo.iutmontp.univ-montp2.fr/~kicient/poke_bowl_api_php/poke_bowl_api/public/api/recettes/' + encodeURI(String(id)))
+.then(responsehttp => responsehttp.json())
+  .then(responseJSON => {
+    console.log(responseJSON);
+    recette.value = responseJSON;
+  });
 </script>
 
 <template>

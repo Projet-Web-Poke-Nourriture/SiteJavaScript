@@ -51,7 +51,8 @@ export default defineComponent({
             },
             body: JSON.stringify(recettePost),
           }
-        );
+        ) //recuperation de la réponse
+        
 
         if (!response.ok) {
           throw new Error(`Erreur HTTP: ${response.status}`);
