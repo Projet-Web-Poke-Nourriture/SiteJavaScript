@@ -34,8 +34,7 @@ export default defineComponent({
           localStorage.setItem('userToken', responseData.token);
         }
         flashMessage.show({type: 'success', title: 'Connexion réussi'})
-        window.location.reload();
-        router.push({name:"PokeBowl"}).then(() => window.location.reload());
+        router.push({name:"pokeBowl"});
       } catch (error) {
         flashMessage.show({type: 'error', title: 'Connexion échoué'})
       }
