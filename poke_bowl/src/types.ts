@@ -23,11 +23,11 @@ export interface Recette {
   recommande: boolean;
   date: Date;
   auteur: Utilisateur;
-  tempsPrepa: number;
+  tempsPreparation: number;
   ingredients: {
     ingredient: Ingredient;
     nombreNecessaire: number;
     poidsNecessaire: number;
   }[];
-  etapes: { numero: number; descriptif: string }[];
+  etapes: string;
 }

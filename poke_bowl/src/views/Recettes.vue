@@ -11,21 +11,7 @@ import {jwtDecode} from "jwt-decode";
 const router = useRouter();
 
 const recettes: Ref<Recette[]> = ref([]);
-
-function convertirEnEtapes(
-  chaine: String
-): { numero: number; descriptif: string }[] {
-  // Diviser la chaîne en utilisant '\\' comme séparateur
-  const etapesBrutes = chaine.split("\\\\");
-
-  // Transformer chaque élément en un objet { numero, descriptif }
-  const etapes = etapesBrutes.map((descriptif, index) => ({
-    numero: index + 1, // Commencer la numérotation à 1
-    descriptif,
-  }));
-
-  return etapes;
-}
+const etapes : Ref<{ numero: number; descriptif: string; }[][]> = ref([]);
 
 fetch(
   "https://webinfo.iutmontp.univ-montp2.fr/~kicient/poke_bowl_api_php/poke_bowl_api/public/api/recettes"

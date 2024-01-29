@@ -1,5 +1,4 @@
 <script lang="ts">
-
 // TODO
 //Finir la logique de la création de la recette
 
@@ -11,15 +10,14 @@ loadScript("/js/search.js");
 
 export default defineComponent({
   setup() {
-
     let recettePost = {
       nom: "",
       etapes: "test",
       tempsPreparation: 0,
     };
 
-    let etapes = [];
-    let ingredientsRecette= []
+    const etapes = ref([{ numero: 1, descriptif: "" }]);
+    let ingredientsRecette = [];
 
     const searchTerm = ref("");
     const searchResults = ref<Ingredient[]>([]);
@@ -33,19 +31,26 @@ export default defineComponent({
         allIngredients.value = responseJSON["hydra:member"];
       });
 
+    function convertirTableauEnChaine(etapes) {
+      return etapes.value
+        .map((etape) => `Étape ${etape.numero}: ${etape.descriptif}`)
+        .join("\\");
+    }
+
     const submitRecette = async () => {
       try {
-        const token = localStorage.getItem('userToken'); // Retrieve the token from local storage
+        const token = localStorage.getItem("userToken"); // Retrieve the token from local storage
+        recettePost.etapes = convertirTableauEnChaine(etapes.value);
         const response = await fetch(
-            "https://webinfo.iutmontp.univ-montp2.fr/~kicient/poke_bowl_api_php/poke_bowl_api/public/api/recettes",
-            {
-              method: "POST",
-              headers: {
-                "Content-Type": "application/json",
-                "Authorization": `Bearer ${token}` // Include the token in the Authorization header
-              },
-              body: JSON.stringify(recettePost),
-            }
+          "https://webinfo.iutmontp.univ-montp2.fr/~kicient/poke_bowl_api_php/poke_bowl_api/public/api/recettes",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+            },
+            body: JSON.stringify(recettePost),
+          }
         );
 
         if (!response.ok) {
@@ -57,7 +62,6 @@ export default defineComponent({
         console.log("Recette créée avec succès", responseData);
 
         window.location.reload();
-
       } catch (error) {
         console.error("Erreur lors de la création de la recette", error);
       }
@@ -86,8 +90,8 @@ export default defineComponent({
     };
 
     const addEtape = () => {
-      etapes.push({
-        numero: etapes.length + 1,
+      etapes.value.push({
+        numero: etapes.value.length + 1,
         descriptif: "",
       });
     };
@@ -174,11 +178,7 @@ export default defineComponent({
       <!-- Étapes -->
       <fieldset>
         <legend>Étapes</legend>
-        <div
-          v-for="(etape, index) in etapes"
-          :key="index"
-          class="etape"
-        >
+        <div v-for="(etape, index) in etapes" :key="index" class="etape">
           <label>Étape {{ etape.numero }}:</label>
           <textarea v-model="etape.descriptif" rows="3"></textarea>
         </div>
@@ -243,7 +243,7 @@ legend {
 }
 
 button {
-  background-color: #FFCC00;
+  background-color: #ffcc00;
   color: #333333;
   border: none;
   border-radius: 5px;
