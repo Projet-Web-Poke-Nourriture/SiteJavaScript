@@ -33,7 +33,8 @@ export default defineComponent({
           localStorage.setItem('userToken', responseData.token);
         }
         console.log("Utilisateur connecté avec succès", responseData);
-        router.push('/PokeBowl');
+        window.location.reload();
+        router.push('/PokeBowl').then(() => window.location.reload());
       } catch (error) {
         console.error("Erreur lors de la connexion de l'utilisateur :", error);
       }
@@ -62,12 +63,14 @@ export default defineComponent({
 </template>
 
 <style scoped>
+
 .login-container {
   max-width: 400px;
   margin: 0 auto;
   padding: 20px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  background-color: #fff;
 }
 
 .form-group {
