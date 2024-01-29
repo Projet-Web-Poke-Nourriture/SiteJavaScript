@@ -11,22 +11,11 @@ loadScript("/js/search.js");
 
 export default defineComponent({
   setup() {
-    // Ici, vous devez remplacer cette partie par votre propre logique pour récupérer l'utilisateur connecté
-    const utilisateurConnecte = ref<Utilisateur>({
-      id: 1, // Exemple d'ID utilisateur
-      login: "UserExample",
-      email: "user@example.com",
-      password: "securepassword",
-      premium: true,
-      roles: ["ROLE_USER"],
-    });
 
     let recettePost = {
       nom: "",
-      etapes: "",
-      tempsPrepa: 0,
-      auteur:
-        "/api/utilisateurs/1",
+      etapes: "test",
+      tempsPreparation: 0,
     };
 
     let etapes = [];
@@ -45,19 +34,18 @@ export default defineComponent({
       });
 
     const submitRecette = async () => {
-      etapes.forEach(etape => {
-        recettePost.etapes = recettePost.etapes + "\\" + etape.descriptif;
-      });
       try {
+        const token = localStorage.getItem('userToken'); // Retrieve the token from local storage
         const response = await fetch(
-          "https://webinfo.iutmontp.univ-montp2.fr/~kicient/poke_bowl_api_php/poke_bowl_api/public/api/recettes",
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify(recettePost),
-          }
+            "https://webinfo.iutmontp.univ-montp2.fr/~kicient/poke_bowl_api_php/poke_bowl_api/public/api/recettes",
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+                "Authorization": `Bearer ${token}` // Include the token in the Authorization header
+              },
+              body: JSON.stringify(recettePost),
+            }
         );
 
         if (!response.ok) {
@@ -65,12 +53,14 @@ export default defineComponent({
         }
 
         const responseData = await response.json();
-        console.log("Recette soumise avec succès", responseData);
-        // Redirection ou traitement après la soumission
+
+        console.log("Recette créée avec succès", responseData);
+
+        window.location.reload();
+
       } catch (error) {
-        console.error("Erreur lors de la soumission de la recette:", error);
+        console.error("Erreur lors de la création de la recette", error);
       }
-      
     };
 
     const searchIngredients = () => {
@@ -132,11 +122,11 @@ export default defineComponent({
 
       <!-- Temps de préparation -->
       <div>
-        <label for="tempsPrepa">Temps de préparation (en minutes):</label>
+        <label for="tempsPreparation">Temps de préparation (en minutes):</label>
         <input
           type="number"
-          id="tempsPrepa"
-          v-model.number="recettePost.tempsPrepa"
+          id="tempsPrepaparation"
+          v-model.number="recettePost.tempsPreparation"
           required
         />
       </div>
