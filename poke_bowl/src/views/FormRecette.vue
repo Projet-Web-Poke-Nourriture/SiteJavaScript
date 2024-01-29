@@ -39,8 +39,9 @@ export default defineComponent({
 
     const submitRecette = async () => {
       try {
-        const token = localStorage.getItem("userToken"); // Retrieve the token from local storage
-        recettePost.etapes = convertirTableauEnChaine(etapes.value);
+        const token = localStorage.getItem("userToken");
+        console.log(etapes.value)
+        recettePost.etapes = convertirTableauEnChaine(etapes);
         const response = await fetch(
           "https://webinfo.iutmontp.univ-montp2.fr/~kicient/poke_bowl_api_php/poke_bowl_api/public/api/recettes",
           {
@@ -51,7 +52,7 @@ export default defineComponent({
             },
             body: JSON.stringify(recettePost),
           }
-        ) //recuperation de la réponse
+        );
         
 
         if (!response.ok) {
@@ -61,8 +62,30 @@ export default defineComponent({
         const responseData = await response.json();
 
         console.log("Recette créée avec succès", responseData);
+        const id = responseData.id;
+        ingredientsRecette.forEach(ingredient => {
+          try{
+            const response = fetch(
+              "https://webinfo.iutmontp.univ-montp2.fr/~kicient/poke_bowl_api_php/poke_bowl_api/public/api/ingredient_recettes",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${token}`, // Include the token in the Authorization header
+                },
+                body: JSON.stringify({
+                  recette: `/api/recettes/${id}`,
+                  ingredient: `/api/ingredients/${ingredient.ingredient.id}`,
+                  quantite: ingredient.nombreNecessaire,
+                }),
+              }
+            );
+          }catch (error){
+            console.error("Erreur lors de la soumission de la recette:", error);
+          }
+        }
+        );
 
-        window.location.reload();
       } catch (error) {
         console.error("Erreur lors de la création de la recette", error);
       }
