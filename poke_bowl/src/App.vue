@@ -63,6 +63,7 @@ const isAdmin = ref(roles.includes("ROLE_ADMIN"))
       <router-view />
     </main>
   </div>
+  <FlashMessage />
 </template>
 
 <style scoped>

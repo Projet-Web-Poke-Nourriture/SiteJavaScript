@@ -1,6 +1,7 @@
 <script lang="ts">
 import { ref, defineComponent } from 'vue';
 import { useRouter } from 'vue-router';
+import {flashMessage} from '@smartweb/vue-flash-message';
 
 export default defineComponent({
   setup() {
@@ -32,11 +33,11 @@ export default defineComponent({
         if (responseData.token) {
           localStorage.setItem('userToken', responseData.token);
         }
-        console.log("Utilisateur connecté avec succès", responseData);
+        flashMessage.show({type: 'success', title: 'Connexion réussi'})
         window.location.reload();
         router.push('/PokeBowl').then(() => window.location.reload());
       } catch (error) {
-        console.error("Erreur lors de la connexion de l'utilisateur :", error);
+        flashMessage.show({type: 'error', title: 'Connexion échoué'})
       }
     };
 

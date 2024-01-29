@@ -5,6 +5,7 @@
 
 import { defineComponent, ref } from 'vue';
 import type { Categorie, Utilisateur } from '@/types';
+import {flashMessage} from '@smartweb/vue-flash-message';
 
 export default defineComponent({
   setup() {
@@ -33,7 +34,7 @@ export default defineComponent({
         }
 
         const responseData = await response.json();
-        console.log("Utilisateur soumis avec succès", responseData);
+        flashMessage.show({type: 'success', title: 'Inscription réussi'})
 
         //redirection à rajouter
       }catch (error){
@@ -65,10 +66,6 @@ export default defineComponent({
         <div>
           <label for="password">Mot de passe de l'utilisateur:</label>
           <input type="password" id="password" v-model="utilisateur.plainPassword" required>
-        </div>
-        <div>
-          <label for="premium">Utilisateur Premium ? :</label>
-          <input type="text" id="premium" v-model="utilisateur.premium" required>
         </div>
         <button type="submit">Créer l'utilisateur</button>
       </form>
