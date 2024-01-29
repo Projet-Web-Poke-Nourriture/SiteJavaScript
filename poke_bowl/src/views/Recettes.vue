@@ -81,11 +81,11 @@ const deleteRecette = async (id) => {
 //Récupération de l'utilisateur
 const userToken = localStorage.getItem("userToken");
 const user = ref();
-const roles = new Proxy([], {});
+let roles = new Proxy([], {});
 if (userToken) {
   const decoded = jwtDecode(userToken);
   user.value = decoded;
-  const roles = user.value.roles;
+  roles = user.value.roles;
 }
 
 const isAdmin = ref(roles.includes("ROLE_ADMIN"));
