@@ -33,7 +33,7 @@ watch(searchTerm, (newValue) => {
 });
 
 function selectIngredient(ingredient: Ingredient) {
-  router.push({ path: `/ingredient/${ingredient.id}` });
+  router.push({ name: 'singleIngredient', params: { id: ingredient.id } });
 }
 
 const goToFormIngredient = () => {

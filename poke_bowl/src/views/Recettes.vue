@@ -49,7 +49,7 @@ watch(searchTerm, (newValue) => {
 });
 
 function selectIngredient(recette: Recette) {
-  router.push({ path: `/recette/${recette.id}` });
+  router.push({name: "singleRecette", params: {id: recette.id}});
 }
 
 const goToFormRecette = () => {

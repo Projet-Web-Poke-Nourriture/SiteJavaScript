@@ -35,7 +35,7 @@ export default defineComponent({
         }
         flashMessage.show({type: 'success', title: 'Connexion réussi'})
         window.location.reload();
-        router.push('/PokeBowl').then(() => window.location.reload());
+        router.push({name:"PokeBowl"}).then(() => window.location.reload());
       } catch (error) {
         flashMessage.show({type: 'error', title: 'Connexion échoué'})
       }
