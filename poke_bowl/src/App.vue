@@ -38,7 +38,7 @@ const isAdmin = ref(roles.includes("ROLE_ADMIN"))
 <template>
   <div id="wrapper">
     <header>
-      <h1 @click="router.push({name: "PokeBowl"})">PokeBowl</h1>
+      <h1 @click="router.push({name: 'pokeBowl'})">PokeBowl</h1>
       <nav>
         <div @click="router.push({ name: 'AllIngredients' })">
           Les ingrédients

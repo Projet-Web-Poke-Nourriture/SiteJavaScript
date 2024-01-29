@@ -20,7 +20,7 @@ const router = createRouter({
     },
     {
       path: "/PokeBowl",
-      name: "PokeBowl",
+      name: "pokeBowl",
       component: PokeBowl,
     },
     {
