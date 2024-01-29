@@ -1,7 +1,5 @@
 <script setup lang="ts">
 // TODO
-// rajouter la fonctionnalité supprimer recette
-// ne pas montrer la suppression des recettes à non admin
 // pb sur les étapes !
 
 import BoiteRecette from "@/components/BoiteRecette.vue";
@@ -9,6 +7,7 @@ import type { Recette } from "@/types";
 import { ref, type Ref, watch } from "vue";
 import { loadScript } from "vue-plugin-load-script";
 import { useRouter } from "vue-router";
+import {jwtDecode} from "jwt-decode";
 const router = useRouter();
 
 const recettes: Ref<Recette[]> = ref([]);
@@ -56,6 +55,41 @@ function selectIngredient(recette: Recette) {
 const goToFormRecette = () => {
   router.push({ name: "formRecette" });
 };
+
+const deleteRecette = async (id) => {
+  if (!id) return; // Vérifier si l'ID est fourni
+  try {
+    const response = await fetch(
+      `https://webinfo.iutmontp.univ-montp2.fr/~kicient/poke_bowl_api_php/poke_bowl_api/public/api/recettes/${id}`,
+      {
+        method: "DELETE",
+      }
+    );
+    if (response.ok) {
+      // Supprimer l'ingrédient du tableau local après la suppression réussie
+      recettes.value = recettes.value.filter(
+        (recette) => recette.id !== id
+      );
+    } else {
+      console.error("Erreur lors de la suppression de la recette");
+    }
+  } catch (error) {
+    console.error("Erreur lors de la suppression de la recette");
+  }
+};
+
+//Récupération de l'utilisateur
+const userToken = localStorage.getItem("userToken");
+const user = ref();
+const roles = new Proxy([], {});
+if (userToken) {
+  const decoded = jwtDecode(userToken);
+  user.value = decoded;
+  const roles = user.value.roles;
+}
+
+const isAdmin = ref(roles.includes("ADMIN"));
+
 </script>
 
 <template>
@@ -68,6 +102,16 @@ const goToFormRecette = () => {
       placeholder="Rechercher une recette..."
     />
     <button @click="goToFormRecette">Créer une recette</button>
+  </div>
+  <div v-if="isAdmin">
+    <input
+      type="number"
+      v-model="recetteIdToDelete"
+      placeholder="Entrez l'ID à supprimer"
+    />
+    <button @click="deleteRecette(recetteIdToDelete)">
+      Supprimer la recette
+    </button>
   </div>
 
   <!-- Afficher les résultats seulement si searchTerm n'est pas vide -->
