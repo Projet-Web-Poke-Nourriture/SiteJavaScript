@@ -38,7 +38,7 @@ export default defineComponent({
 
         //redirection à rajouter
       }catch (error){
-        console.error("Erreur lors de la soumission de l'utilisateur :", error);
+        flashMessage.show({type: 'error', title: 'Login, email ou mot de passe incorrect'})
       }
 
     };
@@ -57,7 +57,7 @@ export default defineComponent({
       <form @submit.prevent="submitUtilisateur">
         <div>
           <label for="login">Login de l'utilisateur:</label>
-          <input type="text" id="login" v-model="utilisateur.login" required>
+          <input type="text" id="login" v-model="utilisateur.login" placeholder="4 caractères minimum" required>
         </div>
         <div>
           <label for="email">Email de l'utilisateur:</label>
@@ -65,7 +65,7 @@ export default defineComponent({
         </div>
         <div>
           <label for="password">Mot de passe de l'utilisateur:</label>
-          <input type="password" id="password" v-model="utilisateur.plainPassword" required>
+          <input type="password" id="password" v-model="utilisateur.plainPassword" placeholder="Maj + Min + Chiffre entre 8 et 30 caractères" required>
         </div>
         <button type="submit">Créer l'utilisateur</button>
       </form>
